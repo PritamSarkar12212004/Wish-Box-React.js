@@ -12,7 +12,7 @@ function MainContent() {
     "https://i.pinimg.com/564x/3d/7e/9d/3d7e9d809c7eacef8aa23680eb94ce67.jpg",
   ];
   return (
-    <div className="w-[100vw] h-[91.7vh] px-4 py-3 bg-[#ceced3] flex  gap-5 justify-center flex-wrap overflow-y-auto   ">
+    <div className="w-[100vw] h-[91.7vh] md:px-4 py-3 bg-[#ceced3] flex  md:gap-5 gap-2 justify-center flex-wrap overflow-y-auto  whitespace-nowrap  ">
       {img.map((item, index) => (
         <Cards img={item} />
       ))}
