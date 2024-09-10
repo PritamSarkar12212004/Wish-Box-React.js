@@ -4,12 +4,12 @@ function Section1() {
   return (
     <div className="w-full h-screen bg-[#E6E8EB]  rounded-3xl relative lg:px-10 lg:py-10 md:px-4 md:py-4 flex items-center overflow-hidden  md:relative ">
       <img
-        src="src/assets/Responsive/1.jpg"
+        src="/assets/Responsive/1.jpg"
         className="md:flex lg:hidden md:absolute md:top-0 md:h-full md:w-full opacity-70 md:left-0 sm:hidden hidden blackish-image"
         alt=""
       />
       <img
-        src="src/assets/Responsive/mobile.jpg"
+        src="/assets/Responsive/mobile.jpg"
         className="sm:flex md:hidden flex sm:absolute sm:top-0 sm:h-full sm:w-full opacity-70 sm:left-0 h-full w-screen absolute blackish-image"
         alt=""
       />
@@ -28,12 +28,12 @@ function Section1() {
         </button>
       </div>
       <img
-        src="src/assets/poster/header.png"
+        src="/assets/poster/header.png"
         alt=""
         className="absolute right-24 md:h-[70%] lg:h-[100%] z-0 lg:flex md:hidden sm:hidden hidden"
       />
       <img
-        src="src/assets/poster/section1--.png"
+        src="/assets/poster/section1--.png"
         alt=""
         className="absolute bottom-[-40%] opacity-30 z-0 left-20 md:hidden lg:flex sm:hidden hidden "
       />  

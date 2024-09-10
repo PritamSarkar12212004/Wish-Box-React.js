@@ -4,7 +4,7 @@ function Section3() {
   return (
     <div className="w-full flex md:flex-row flex-col  md:justify-between md:items-center  justify-center items-center lg:px-10 lg:h-auto  md:px-10 md:py-20   lg:py-10   md:text-white  md:bg-[#F42C37]   rounded-3xl md:mt-20 md:mb-20 relative text-black ">
       <img
-        src="src/assets/poster/section3.png"
+        src="/assets/poster/section3.png"
         alt=""
         className=" md:absolute inset-0 m-auto lg:bottom-24 md:bottom-60 lg:h-auto md:w-[50vw] lg:w-auto"
       />

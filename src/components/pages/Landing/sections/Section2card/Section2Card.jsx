@@ -21,7 +21,7 @@ function Section2Card() {
         </h1>
 
         <img
-          src="src/assets/poster/section2--.png"
+          src="/assets/poster/section2--.png"
           alt=""
           className="h-[70%] absolute bottom-0 right-0 opacity-80 z-10"
         />
@@ -43,7 +43,7 @@ function Section2Card() {
           </button>
         </h1>
         <img
-          src="src/assets/poster/section2-----.png"
+          src="/assets/poster/section2-----.png"
           alt=""
           className="h-[90%] absolute bottom-0 right-0 opacity-80 z-10"
         />
@@ -67,7 +67,7 @@ function Section2Card() {
           </button>
         </h1>
         <img
-          src="src/assets/poster/6.png"
+          src="/assets/poster/6.png"
           className="h-full absolute right-0 top-0"
           alt=""
         />

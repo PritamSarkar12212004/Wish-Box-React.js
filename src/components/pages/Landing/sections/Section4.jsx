@@ -7,7 +7,7 @@ function Section4() {
       <div className="h-full md:w-[35%] flex flex-col justify-between md:items-start items-center  gap-10 ">
         <div className="md:w-full w-80 h-[47%] hidden bg-blue-500 rounded-3xl md:flex justify-center items-center">
           <img
-            src="src/assets/poster/11.png"
+            src="/assets/poster/11.png"
             className="h-full hover:scale-125 duration-300 cursor-pointer "
             alt=""
           />
@@ -60,7 +60,7 @@ function Section4() {
           </button>
         </div>
         <div className="w-full h-[60%] bg-[#d5f178] rounded-3xl">
-          <img src="src/assets/poster/222222.png" className="w-full h-full" alt="" />
+          <img src="/assets/poster/222222.png" className="w-full h-full" alt="" />
         </div>
       </div>
     </div>
