@@ -1,6 +1,6 @@
 import React from "react";
 import Cards from "../../templates/Card/Cards";
-
+import Footer from '../Footer/Footer'
 function MainContent() {
   const img = [
     "https://i.pinimg.com/564x/0e/51/76/0e5176ff9b377d184c36ea57324aab85.jpg",
@@ -16,6 +16,7 @@ function MainContent() {
       {img.map((item, index) => (
         <Cards img={item} />
       ))}
+      <Footer/>
     </div>
   );
 }
