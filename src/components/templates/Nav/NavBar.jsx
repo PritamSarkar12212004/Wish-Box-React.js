@@ -11,7 +11,7 @@ function NavBar() {
     setRouteName(location.pathname);
   }, [location]);
   return (
-    <div className="lg:w-[full] lg:h-14 lg:text-xl md:h-12 md:text-medium sm:text-sm  h-10 w-[100w] border-b-[1px] border-b-gray-300 px-3 py-1 flex items-center justify-between ">
+    <div className="lg:w-[full] lg:h-14  lg:text-xl md:h-12 md:text-medium sm:text-sm  h-14 w-[100w] border-b-[1px] border-b-gray-300 px-3 py-1 flex items-center justify-between ">
       <img
         className="h-full"
         src="https://i.pinimg.com/564x/9f/93/ae/9f93ae8f39417cd575e735bf5f1b1505.jpg"
@@ -25,16 +25,16 @@ function NavBar() {
           <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 ">
             <NavLink to={"/product"}>Product</NavLink>
           </li>
-          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 ">
+          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600  md:flex hidden">
             <NavLink>About</NavLink>
           </li>
-          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 ">
+          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 md:flex hidden ">
             <NavLink>Contact</NavLink>
           </li>
         </ul>
       </div>
       {routeName === "/product" ? (
-        <select name="" id="">
+        <select name="" id="" className=" md:flex hidden">
           <option value="">All</option>
           <option value="">cwf</option>
           <option value="">cwf</option>
@@ -58,7 +58,7 @@ function NavBar() {
         />
       ) : null}
 
-      <div className="flex">
+      <div className="flex  md:flex hidden">
         <ul className="flex  h-full items-center gap-10 ml-3">
           {routeName === "/product" ? (
             <>
@@ -87,6 +87,9 @@ function NavBar() {
           </span>
         </ul>
       </div>
+      <button className="md:hidden flex text-4xl">
+      <i class="ri-menu-fill"></i>
+    </button>
     </div>
   );
 }
