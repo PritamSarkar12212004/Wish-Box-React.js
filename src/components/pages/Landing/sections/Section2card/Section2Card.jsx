@@ -3,7 +3,7 @@ import React from "react";
 function Section2Card() {
   return (
     <div className="flex w-full md:justify-between md:gap-12 gap-2 md:flex-nowrap flex-wrap justify-around">
-      <div className="lg:h-80 lg:w-96 md:h-60 w-[90%]  md:min-w-64 rounded-3xl bg-[#2B2B2B] relative px-3 py-3 text-white flex  items-center  ">
+      <div className="lg:h-80 lg:w-96 md:h-60 w-[95%]  md:min-w-64 rounded-3xl bg-[#2B2B2B] relative px-3 py-3 text-white flex  items-center  ">
         <h1 className=" z-20">
           <span className="text-2xl font-bold opacity-70">Decoration</span>{" "}
           <br />
@@ -26,7 +26,7 @@ function Section2Card() {
           className="h-[70%] absolute bottom-0 right-0 opacity-80 z-10"
         />
       </div>
-      <div className="lg:h-80 lg:w-80 md:h-60  md:min-w-64 w-[90%] rounded-3xl bg-[#FDC938] relative px-3 py-3 text-white flex  items-center ">
+      <div className="lg:h-80 lg:w-80 md:h-60  md:min-w-64 w-[95%] rounded-3xl bg-[#FDC938] relative px-3 py-3 text-white flex  items-center ">
         <h1 className=" z-20">
           <span className="text-2xl font-bold opacity-70">Decoration</span>{" "}
           <br />
@@ -48,7 +48,7 @@ function Section2Card() {
           className="h-[90%] absolute bottom-0 right-0 opacity-80 z-10"
         />
       </div>
-      <div className="lg:h-80  md:h-60 md:min-w-64 w-[90%]   lg:flex-auto rounded-3xl bg-[#F4333D] relative px-5 py-5 flex  items-center">
+      <div className="lg:h-80  md:h-60 md:min-w-64 w-[95%]   lg:flex-auto rounded-3xl bg-[#F4333D] relative px-5 py-5 flex  items-center">
         <h1 className=" z-20">
           <span className="text-2xl font-bold  text-white opacity-65">
             Decoration
