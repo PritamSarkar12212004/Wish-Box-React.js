@@ -3,12 +3,12 @@ import React from "react";
 function Cards(props) {
   const { img } = props;
   return (
-    <div className="lg:w-60 md:w-56 max-w-32 relative hover:scale-105 duration-300 cursor-pointer">
+    <div className="lg:w-60 md:w-56  w-44   relative hover:scale-105 duration-300 cursor-pointer border-[1px] border-zinc-300 rounded-lg px-3 py-2">
       <span className="flex  absolute text-white text-2xl  right-2 top-2 hover:text-red-600 hover:scale-110 duration-300 cursor-pointer">
         <i class="ri-heart-line"></i>{" "}
       </span>
       <img
-        className="w-full rounded-xl lg:h-64 md:h-52 h-32"
+        className="w-full md:rounded-xl lg:h-64 md:h-52 h-52"
         src={img}
         alt=""
       />
