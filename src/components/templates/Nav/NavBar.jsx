@@ -54,11 +54,11 @@ function NavBar() {
           placeholder="Search Items"
           name=""
           id=""
-          className="text-sm border-zinc-500 border-2 rounded- px-5 py-2 rounded-xl "
+          className="text-sm border-zinc-500 border-2 rounded- px-5 py-2 rounded-xl md:flex hidden "
         />
       ) : null}
 
-      <div className="flex  md:flex hidden">
+      <div className="  md:flex hidden">
         <ul className="flex  h-full items-center gap-10 ml-3">
           {routeName === "/product" ? (
             <>
@@ -88,8 +88,8 @@ function NavBar() {
         </ul>
       </div>
       <button className="md:hidden flex text-4xl">
-      <i class="ri-menu-fill"></i>
-    </button>
+        <i class="ri-menu-fill"></i>
+      </button>
     </div>
   );
 }
