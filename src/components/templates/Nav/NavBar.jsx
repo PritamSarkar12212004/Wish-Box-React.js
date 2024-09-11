@@ -3,10 +3,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import ContextMaker from "../../../context/ContextMaker";
 
 function NavBar() {
-  const { notibar, setnotibar } = useContext(ContextMaker);
+  const { notibar, setnotibar, sidebarHam, setsidebarHam } =
+    useContext(ContextMaker);
   const [routeName, setRouteName] = useState();
   const location = useLocation();
-  console.log(routeName);
   useEffect(() => {
     setRouteName(location.pathname);
   }, [location]);
@@ -87,7 +87,10 @@ function NavBar() {
           </span>
         </ul>
       </div>
-      <button className="md:hidden flex text-4xl">
+      <button
+        className="md:hidden flex text-4xl"
+        onClick={() => setsidebarHam(!sidebarHam)}
+      >
         <i class="ri-menu-fill"></i>
       </button>
     </div>
