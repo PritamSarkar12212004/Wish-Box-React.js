@@ -3,7 +3,7 @@ import ScoreCard from "../compoItems/ScoreCard/ScoreCard";
 
 function AdminPage() {
   return (
-    <div className="px-5 py-5">
+    <div className="lg:px-5 lg:py-5 md:px-2 md:py-2">
       <ScoreCard />
     </div>
   );
