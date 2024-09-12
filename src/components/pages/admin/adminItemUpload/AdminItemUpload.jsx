@@ -1,129 +1,94 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Axios for HTTP requests
 
 function AdminItemUpload() {
-  const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm();
-
-  // Submit the form data and images
-  const submitForm = async (data) => {
-    const formData = new FormData();
-
-    // Append files to formData
-    formData.append("images", data.image1[0]); // First image
-    formData.append("images", data.image2[0]); // Second image
-    formData.append("images", data.image3[0]); // Third image
-
-    // Append other form data
-    formData.append("price", data.price);
-    formData.append("name", data.name);
-    formData.append("category", data.category);
-    formData.append("width", data.width);
-    formData.append("height", data.hight); // Note: Corrected from "hight" to "height"
-    formData.append("description", data.description);
-
-    try {
-      // Make the POST request to your backend API
-      const response = await axios.post(
-        "http://localhost:3000/item/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      // Check for success and navigate after upload
-      if (response.status === 200) {
-        console.log("Upload successful:", response.data);
-        reset(); // Reset the form
-        navigate("/dashboard/adminproducts");
-      }
-    } catch (error) {
-      console.error("Error uploading the item:", error);
-    }
-  };
-
   return (
-    <div className="flex justify-center items-center flex-col h-[91.8vh] overflow-y-auto">
-      <h1 className="text-3xl m-2 font-bold">Publish Items</h1>
-      <form
-        action=""
-        className="w-[50%] h-full"
-        onSubmit={handleSubmit(submitForm)}
-        encType="multipart/form-data" // Important for file uploads
-      >
-        <div className="flex flex-col h-full gap-4 overflow-y-auto">
+    <div className="w-full h-[91.8vh] overflow-y-auto flex justify-center">
+      <form action="" className="w-[60%]  ">
+        <span className="w-full flex justify-between h-28 ">
+          <label htmlFor="img1">
+            <span className="text-7xl font-extralight flex flex-col items-center justify-center cursor-pointer text-blue-600">
+              <i class="ri-upload-cloud-line"></i>{" "}
+              <h1 className="text-lg">Frist Image</h1>
+            </span>
+          </label>
+          <input type="file" className="hidden" id="img2" />
+          <label htmlFor="img2">
+            <span className="text-7xl font-extralight flex flex-col items-center justify-center cursor-pointer text-orange-600">
+              <i class="ri-upload-cloud-line"></i>{" "}
+              <h1 className="text-lg">Secound Image</h1>
+            </span>
+          </label>
+          <input type="file" className="hidden" id="img2" />
+          <label htmlFor="img3" className="">
+            <span className="text-7xl font-extralight flex flex-col items-center justify-center cursor-pointer text-red-600">
+              <i class="ri-upload-cloud-line"></i>{" "}
+              <h1 className="text-lg">Third Image</h1>
+            </span>
+          </label>
+          <input type="file" className="hidden" id="img3" />
+          <label htmlFor="img3">
+            <span className="text-7xl font-extralight flex flex-col items-center justify-center cursor-pointer text-yellow-600">
+              <i class="ri-upload-cloud-line"></i>{" "}
+              <h1 className="text-lg">Forth Image</h1>
+            </span>
+          </label>
+          <input type="file" className="hidden" id="img3" />
+          <label htmlFor="img4">
+            <span className="text-7xl font-extralight flex flex-col items-center justify-center cursor-pointer">
+              <i class="ri-upload-cloud-line"></i>{" "}
+              <h1 className="text-lg">Fifth Image</h1>
+            </span>
+          </label>
+          <input type="file" className="hidden" id="img4" />
+        </span>
+        <div className="mt-3  w-full flex justify-between items-center">
           <input
-            type="file"
-            placeholder="Upload Image 1"
-            className="border-b-2 border-b-zinc-300"
-            {...register("image1")}
-            accept="image/*" // Allow only image files
-          />
-          <input
-            type="file"
-            placeholder="Upload Image 2"
-            className="border-b-2 border-b-zinc-300"
-            {...register("image2")}
-            accept="image/*"
-          />
-          <input
-            type="file"
-            placeholder="Upload Image 3"
-            className="border-b-2 border-b-zinc-300"
-            {...register("image3")}
-            accept="image/*"
+            type="text"
+            placeholder="item name"
+            className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize"
           />
           <input
             type="text"
-            placeholder="Item Price"
-            className="text-black w-[70%] px-3 py-2 bg-zinc-300 rounded-md placeholder:text-zinc-700 capitalize"
-            {...register("price")}
+            placeholder="Price"
+            className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize"
           />
+          <select
+            name=""
+            id=""
+            className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize w-36"
+          >
+            <option value="">Kite</option>
+            <option value="">Kite</option>
+            <option value="">Kite</option>
+            <option value="">Kite</option>
+            <option value="">Kite</option>
+            <option value="">Kite</option>
+          </select>
           <input
             type="text"
-            placeholder="Item Name"
-            className="text-black w-[70%] px-3 py-2 bg-zinc-300 rounded-md placeholder:text-zinc-700 capitalize"
-            {...register("name")}
+            placeholder="Length"
+            className=" text-sm h-10 px-3 w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
           />
-          <div className="flex flex-col gap-1">
-            <label htmlFor="cate">Item Type</label>
-            <select
-              id="cate"
-              className="w-[50%] bg-blue-300 px-2 py-2 rounded-xl"
-              {...register("category")}
-            >
-              <option value="kite">Kite</option>
-              {/* Add more options as needed */}
-            </select>
-          </div>
-          <span className="flex gap-10">
-            <input
-              type="text"
-              placeholder="Width"
-              className="text-black w-[30%] px-3 py-2 bg-zinc-300 rounded-md placeholder:text-zinc-700 capitalize"
-              {...register("width")}
-            />
-            <input
-              type="text"
-              placeholder="Height"
-              className="text-black w-[30%] px-3 py-2 bg-zinc-300 rounded-md placeholder:text-zinc-700 capitalize"
-              {...register("hight")} // Note: Corrected in formData to "height"
-            />
-          </span>
-          <textarea
-            placeholder="Description"
-            className="w-full h-40 border-[1px] border-zinc-500 outline-none px-2 py-2 rounded-xl"
-            {...register("description")}
-          ></textarea>
+
+          <input
+            type="text"
+            placeholder="Width"
+            className=" text-sm h-10 px-3 w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
+          />
         </div>
-        <button className="px-5 py-2 bg-blue-500 text-white rounded">
-          Publish
-        </button>
+        <span className="w-full flex justify-center mt-5 items-center">
+          <textarea
+            name=""
+            id=""
+            className="w-[80%] h-80 border-[1px] border-zinc-400 rounded-xl outline-none px-2 py-2 capitalize"
+            placeholder="descprition "
+          ></textarea>
+        </span>
+        <span className="w-full flex justify-center items-center">
+          <button className="px-3 py-2 bg-blue-500 rounded text-white  mt-5  hover:bg-blue-600 hover:scale-105 duration-300">
+            Upload <i class="ri-upload-cloud-2-line"></i>
+          </button>
+        </span>
       </form>
     </div>
   );
