@@ -1,13 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import axiosInstance from "../../../../utils/axios/AxiosConfig";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function AdminItemUpload() {
+  const [backendResponse, setBackednResponse] = useState();
+  const reciveBackedData = (data) => {
+    console.log(data.data[0]);
+  };
   const { register, handleSubmit, reset } = useForm();
   const [imageList, setImageList] = useState([]);
-  const [uploadedImageURLs, setUploadedImageURLs] = useState([]);
-
-  const handleFormSubmission = async () => {
+  const handleFormSubmission = async (infos) => {
     if (imageList.length === 0) return;
     const uploadPromises = imageList.map((image) => {
       const data = new FormData();
@@ -22,14 +25,18 @@ function AdminItemUpload() {
 
     try {
       const responses = await Promise.all(uploadPromises);
-      const urls = responses.map((response) => response.data.secure_url);
-      setUploadedImageURLs(urls);
+      const uploadedImageURLs = responses.map(
+        (response) => response.data.secure_url
+      );
+      axiosInstance
+        .post("/upload/product", { infos, uploadedImageURLs })
+        .then((response) => reciveBackedData(response));
+      reset();
       console.log("Uploaded URLs: ", urls);
     } catch (err) {
       console.error("Error uploading images:", err);
     }
   };
-
   const handleImageChange = (e, index) => {
     const files = e.target.files;
     if (files.length > 0) {
@@ -82,14 +89,14 @@ function AdminItemUpload() {
             {...register("ProductName")}
           />
           <input
-            type="text"
+            type="number"
             placeholder="Price"
             className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize"
-            {...register("Price")}
+            {...register("ProductPrice")}
           />
           <select
             className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize w-36"
-            {...register("category")}
+            {...register("ProductCategory")}
           >
             <option value="Kite">Kite</option>
             <option value="PomPom">PomPom</option>
@@ -99,13 +106,13 @@ function AdminItemUpload() {
             type="text"
             placeholder="Length"
             className="text-sm h-10 px-3 w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
-            {...register("length")}
+            {...register("ProductLength")}
           />
           <input
             type="text"
             placeholder="Width"
             className="text-sm h-10 px-3 w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
-            {...register("width")}
+            {...register("ProductWidth")}
           />
         </div>
 
@@ -114,7 +121,7 @@ function AdminItemUpload() {
           <textarea
             className="w-[80%] h-80 border-[1px] border-zinc-400 rounded-xl outline-none px-2 py-2 capitalize"
             placeholder="Description"
-            {...register("description")}
+            {...register("ProductDescription")}
           ></textarea>
         </span>
 
