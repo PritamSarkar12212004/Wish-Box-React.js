@@ -1,10 +1,14 @@
 import React from "react";
 
 function Cards(props) {
-  const { img } = props;
+  const { img ,popAuth } = props;
+
   return (
     <div className="lg:w-60 md:w-56  w-44   relative hover:scale-105 duration-300 cursor-pointer border-[1px] border-zinc-300 rounded-lg px-3 py-2">
-      <span className="flex  absolute text-white text-2xl  right-2 top-2 hover:text-red-600 hover:scale-110 duration-300 cursor-pointer">
+      <span onClick={()=>popAuth()}
+       
+        className=" hidden md:flex   absolute text-white text-2xl  right-2 top-2 hover:text-red-600 hover:scale-110 duration-300 cursor-pointer"
+      >
         <i class="ri-heart-line"></i>{" "}
       </span>
       <img
@@ -13,7 +17,9 @@ function Cards(props) {
         alt=""
       />
       <div className="w-full md:h-44   md:relative -top-10 md:bg-white mt-2 md:border-[1px] md:border-zinc-300 md:shadow-md md:rounded-2xl px-2 md:py-2 ">
-        <h1 className=" md:font-bold  font-normal md:text-medium text-sm">The Night Star</h1>
+        <h1 className=" md:font-bold  font-normal md:text-medium text-sm">
+          The Night Star
+        </h1>
         <p className="text-sm md:flex hidden">
           Lorem ipsum dolor sit amet consectetur, adipisxpedita nulla eum!
         </p>

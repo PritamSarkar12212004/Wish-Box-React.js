@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "../../templates/Card/Cards";
 import Footer from "../Footer/Footer";
-import SearchBar from "../../templates/SearchBar/SearchBar";
+import PopUp from "../../auth/PopUpWindow/PopUp";
 function MainContent() {
   const img = [
     "https://i.pinimg.com/564x/0e/51/76/0e5176ff9b377d184c36ea57324aab85.jpg",
@@ -12,12 +12,22 @@ function MainContent() {
     "https://i.pinimg.com/564x/0e/51/76/0e5176ff9b377d184c36ea57324aab85.jpg",
     "https://i.pinimg.com/564x/3d/7e/9d/3d7e9d809c7eacef8aa23680eb94ce67.jpg",
   ];
+  const [popUp, setpopUp] = useState(false);
+  const [close, setclose] = useState(false);
+
+  const popAuth = () => {
+    {
+      localStorage.getItem("userData") ? null : setpopUp(true);
+    }
+    setclose(!close)
+  };
+  useEffect(() => {}, [popUp]);
   return (
     <div className="w-[100vw] h-[91.7vh] md:px-4   flex   justify-center flex-col     ">
-      {/* <SearchBar /> */}
+      {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
       <div className="w-full h-full flex flex-wrap overflow-y-auto  justify-center md:gap-5 gap-4">
         {img.map((item, index) => (
-          <Cards img={item} />
+          <Cards key={index} img={item} popAuth={popAuth}   />
         ))}
         <Footer />
       </div>
