@@ -2,15 +2,22 @@ import axios from "axios";
 import axiosInstance from "../../../../utils/axios/AxiosConfig";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Loading from "../../../loading/Loading";
 
 function AdminItemUpload() {
+  const [loader, setloader] = useState(false);
+  const navigate = useNavigate();
   const [backendResponse, setBackednResponse] = useState();
   const reciveBackedData = (data) => {
-    console.log(data.data[0]);
+    setBackednResponse(data.data[0]);
+    reset();
+    navigate("/dashbord/adminproducts");
   };
   const { register, handleSubmit, reset } = useForm();
   const [imageList, setImageList] = useState([]);
   const handleFormSubmission = async (infos) => {
+    setloader(true);
     if (imageList.length === 0) return;
     const uploadPromises = imageList.map((image) => {
       const data = new FormData();
@@ -31,7 +38,6 @@ function AdminItemUpload() {
       axiosInstance
         .post("/upload/product", { infos, uploadedImageURLs })
         .then((response) => reciveBackedData(response));
-      reset();
       console.log("Uploaded URLs: ", urls);
     } catch (err) {
       console.error("Error uploading images:", err);
@@ -47,14 +53,18 @@ function AdminItemUpload() {
   };
 
   return (
-    <div className="w-full h-[91.8vh] overflow-y-auto flex justify-center">
-      <form className="w-[60%]" onSubmit={handleSubmit(handleFormSubmission)}>
-        <span className="w-full flex justify-between h-28">
+    <div className="w-full h-[91.8vh] overflow-y-auto flex justify-center relative">
+      {loader ? <Loading /> : null}
+      <form
+        className="lg:w-[60%] md:w-[70%] w-full sm:px-3 md:px-0 flex flex-col"
+        onSubmit={handleSubmit(handleFormSubmission)}
+      >
+        <span className="w-full flex md:flex-row flex-wrap justify-around md:h-28 sm:h-24">
           {["First", "Second", "Third", "Fourth", "Fifth"].map(
             (label, index) => (
               <label key={index} htmlFor={`img${index}`}>
                 <span
-                  className={`text-7xl font-extralight flex flex-col items-center justify-center cursor-pointer ${
+                  className={`md:text-7xl text-9xl font-extralight flex flex-col items-center justify-center cursor-pointer ${
                     index === 0
                       ? "text-blue-600"
                       : index === 1
@@ -67,7 +77,9 @@ function AdminItemUpload() {
                   }`}
                 >
                   <i className="ri-upload-cloud-line"></i>{" "}
-                  <h1 className="text-lg">{label} Image</h1>
+                  <h1 className="lg:text-lg  md:text-sm  text-sm ">
+                    {label} Image
+                  </h1>
                 </span>
                 <input
                   type="file"
@@ -81,15 +93,17 @@ function AdminItemUpload() {
         </span>
 
         {/* Input fields for other data */}
-        <div className="mt-3 w-full flex justify-between items-center">
+        <div className="mt-3 w-full flex lg:justify-between items-center flex-wrap md:justify-start md:gap-3 md:px-0 px-4 md:py-0 py-3 justify-center  gap-5 sm:mt-20 ">
           <input
             type="text"
+            required
             placeholder="Item Name"
             className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize"
             {...register("ProductName")}
           />
           <input
             type="number"
+            required
             placeholder="Price"
             className="h-10 px-3 border-[1px] border-zinc-500 rounded-xl capitalize"
             {...register("ProductPrice")}
@@ -103,15 +117,17 @@ function AdminItemUpload() {
             <option value="Pataka">Pataka</option>
           </select>
           <input
+            required
             type="text"
             placeholder="Length"
-            className="text-sm h-10 px-3 w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
+            className="text-sm h-10 px-3 md:w-16  border-[1px] border-zinc-500 rounded-xl capitalize"
             {...register("ProductLength")}
           />
           <input
             type="text"
+            required
             placeholder="Width"
-            className="text-sm h-10 px-3 w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
+            className="text-sm h-10 px-3 md:w-16 border-[1px] border-zinc-500 rounded-xl capitalize"
             {...register("ProductWidth")}
           />
         </div>
@@ -119,7 +135,8 @@ function AdminItemUpload() {
         {/* Description input */}
         <span className="w-full flex justify-center mt-5 items-center">
           <textarea
-            className="w-[80%] h-80 border-[1px] border-zinc-400 rounded-xl outline-none px-2 py-2 capitalize"
+            required
+            className="md:w-[80%] w-[90%] h-80 border-[1px] border-zinc-400 rounded-xl outline-none px-2 py-2 capitalize"
             placeholder="Description"
             {...register("ProductDescription")}
           ></textarea>
@@ -128,7 +145,7 @@ function AdminItemUpload() {
         {/* Submit button */}
         <span className="w-full flex justify-center items-center">
           <button
-            className="px-3 py-2 bg-blue-500 rounded text-white mt-5 hover:bg-blue-600 hover:scale-105 duration-300"
+            className="md:px-3 md:py-2 px-10 py-3 bg-blue-500 rounded text-white mt-5 hover:bg-blue-600 hover:scale-105 duration-300"
             type="submit"
           >
             Upload <i className="ri-upload-cloud-2-line"></i>
