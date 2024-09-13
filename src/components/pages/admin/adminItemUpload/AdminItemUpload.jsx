@@ -38,7 +38,7 @@ function AdminItemUpload() {
       axiosInstance
         .post("/upload/product", { infos, uploadedImageURLs })
         .then((response) => reciveBackedData(response));
-      console.log("Uploaded URLs: ", urls);
+      console.log("Uploaded URLs: ", uploadedImageURLs);
     } catch (err) {
       console.error("Error uploading images:", err);
     }
