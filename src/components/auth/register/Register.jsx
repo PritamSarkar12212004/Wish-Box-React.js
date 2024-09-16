@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
-function Login() {
+function Register() {
+  document.title = "Register";
+  const [res, setres] = useState("das");
+  const [lodaer, setloader] = useState(true);
   const navigate = useNavigate();
-  document.title = "Login";
   const { register, handleSubmit, reset } = useForm();
-  const LoginFormController = (data) => {
+  const formController = async (data) => {
     axiosInstance
-      .post("/register/user/login", data)
-      .then((res) => resController(res))
+      .post("/register/user", data)
+      .then((res) => responseCoontroller(res))
       .catch((err) => console.log(err));
+    setloader(!lodaer);
   };
-  const resController = (res) => {
-    if (
-      res.data === "Password is incorrect" ||
-      res.data === "Phone number is incorrect"
-    ) {
-      alert(res.data);
+  const responseCoontroller = async (data) => {
+    const authData = await data;
+    if (authData.data === "User already exist") {
+      alert("Phone number already exist Plz Login");
     } else {
-      localStorage.setItem("AuthUSerData", JSON.stringify(res.data));
+      localStorage.setItem("AuthUSerData", JSON.stringify(authData.data));
       reset();
       navigate("/");
     }
@@ -29,18 +30,32 @@ function Login() {
       <div className="w-1/2  h-full flex justify-center items-center">
         <form
           action=""
-          className="w-[70%] h-[80%] bg-zinc-200 rounded-xl flex flex-col justify-center items-center gap-5"
-          onSubmit={handleSubmit(LoginFormController)}
+          className="w-[80%] h-[80%] bg-zinc-200 rounded-xl flex flex-col justify-center items-center gap-5"
+          onSubmit={handleSubmit(formController)}
         >
-          <h1 className="text-4xl font-bold text-blue-600 mb-10">Login</h1>
+          <h1 className="text-4xl font-bold text-blue-600 mb-10">Register</h1>
           <span className="w-1/2 flex flex-col justify-center items-start">
-            <label htmlFor="phoneNumber" className="text-sm opacity-80">
+            <label htmlFor="name" className="text-sm opacity-80">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Your name"
+              required
+              className="w-full px-2 py-2 rounded-md border-[1px] outline-none border-blue-500"
+              {...register("name")}
+            />
+          </span>
+          <span className="w-1/2 flex flex-col justify-center items-start">
+            <label htmlFor="nummber" className="text-sm opacity-80">
               Number
             </label>
             <input
               type="number"
-              id="phoneNumber"
+              id="nummber"
               placeholder="Number"
+              required
               className="w-full px-2 py-2 rounded-md border-[1px] outline-none border-blue-500"
               {...register("phoneNumber")}
             />
@@ -52,19 +67,20 @@ function Login() {
             <input
               type="text"
               id="Password"
+              required
               placeholder="Password"
               className="w-full px-2 py-2 rounded-md border-[1px] outline-none border-blue-500"
               {...register("password")}
             />
           </span>
           <span className="w-1/2 text-sm opacity-75">
-            If you not register then go{" "}
-            <Link className="text-blue-600    underline" to={"/auth/register"}>
-              Register
+            If you alradey registerd then go{" "}
+            <Link className="text-blue-600  underline" to={"/auth/login"}>
+              Login
             </Link>
           </span>
           <button className="px-10 text-white rounded-xl hover:bg-blue-600 duration-300 hover:scale-105 py-2 bg-blue-500">
-            Login
+            Register
           </button>
         </form>
       </div>
@@ -75,4 +91,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

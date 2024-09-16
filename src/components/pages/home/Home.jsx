@@ -1,5 +1,4 @@
 import React from "react";
-import SideBar from "../../templates/SideBar/SideBar";
 import MainContent from "../mainContent/MainContent";
 
 function Home() {

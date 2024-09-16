@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import NavBar from "./components/templates/Nav/NavBar";
 import NotifiCation from "./components/templates/NotiSideBar/NotifiCation";
-import Home from "./components/pages/home/Home";
 import RoutesPath from "./routes/RoutesPath";
 import SideHamBar from "./components/templates/responsive/sideHamBar/SideHamBar";
+import AuthRoute from './routes/AuthRoute'
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
       <NotifiCation />
       <SideHamBar />
       <RoutesPath />
+      <AuthRoute/>
     </div>
   );
 }

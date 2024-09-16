@@ -1,8 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import ContextMaker from "../../../context/ContextMaker";
+import PopUp from "../../auth/PopUpWindow/PopUp";
+import axiosInstance from "../../../utils/axios/AxiosConfig";
 
 function NavBar() {
+  const navigate = useNavigate();
+  const authFinder = localStorage.getItem("AuthUSerData");
+  const [popUp, setpopUp] = useState(false);
+
   const { notibar, setnotibar, sidebarHam, setsidebarHam } =
     useContext(ContextMaker);
   const [routeName, setRouteName] = useState();
@@ -12,6 +18,8 @@ function NavBar() {
   }, [location]);
   return (
     <div className="lg:w-[full] lg:h-14  lg:text-xl md:h-12 md:text-medium sm:text-sm  h-14 w-[100w] border-b-[1px] border-b-gray-300 px-3 py-1 flex items-center justify-between ">
+      {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
+
       <img
         className="h-full"
         src="https://i.pinimg.com/564x/9f/93/ae/9f93ae8f39417cd575e735bf5f1b1505.jpg"
@@ -62,12 +70,20 @@ function NavBar() {
         <ul className="flex  h-full items-center gap-10 ml-3">
           {routeName === "/product" ? (
             <>
-              <span className="text-3xl  text-red-600  duration-300 cursor-pointer">
-                <i class="ri-heart-2-fill"></i>{" "}
-              </span>
-              <span className="text-3xl   text-blue-600 duration-300 cursor-pointer">
-                <i class="ri-shopping-cart-2-fill"></i>{" "}
-              </span>
+              <button>
+                <NavLink to={"/like"}>
+                  <span className="text-3xl  text-red-600  duration-300 cursor-pointer">
+                    <i class="ri-heart-2-fill"></i>{" "}
+                  </span>
+                </NavLink>
+              </button>
+              <button>
+                <NavLink to={"/cart"}>
+                  <span className="text-3xl   text-blue-600 duration-300 cursor-pointer">
+                    <i class="ri-shopping-cart-2-fill"></i>{" "}
+                  </span>
+                </NavLink>
+              </button>
               <span
                 className="text-3xl  text-orange-600 cursor-pointer"
                 onClick={() => setnotibar(!notibar)}
@@ -81,7 +97,7 @@ function NavBar() {
             </>
           ) : null}
           <span className="text-3xl cursor-pointer">
-            <NavLink to={"/dashbord"}>
+            <NavLink to={"/dashbord"} >
               <i class="ri-user-fill"></i>
             </NavLink>
           </span>
