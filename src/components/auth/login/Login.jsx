@@ -26,14 +26,14 @@ function Login() {
   };
   return (
     <div className="w-full h-[91.8vh] flex  ">
-      <div className="w-1/2  h-full flex justify-center items-center">
+      <div className="md:w-1/2  md:h-full w-full h-full flex justify-center items-center bg-white">
         <form
           action=""
-          className="w-[70%] h-[80%] bg-zinc-200 rounded-xl flex flex-col justify-center items-center gap-5"
+          className="md:w-[70%] md:h-[80%] md:bg-zinc-200 bg-zinc-300/30 backdrop-blur-sm w-[90%] h-[60%] rounded-xl flex flex-col justify-center items-center gap-5"
           onSubmit={handleSubmit(LoginFormController)}
         >
-          <h1 className="text-4xl font-bold text-blue-600 mb-10">Login</h1>
-          <span className="w-1/2 flex flex-col justify-center items-start">
+          <h1 className="md:text-4xl text-5xl font-bold text-blue-600 md:mb-10">Login</h1>
+          <span className="md:w-1/2 w-[80%] flex flex-col justify-center items-start">
             <label htmlFor="phoneNumber" className="text-sm opacity-80">
               Number
             </label>
@@ -45,7 +45,7 @@ function Login() {
               {...register("phoneNumber")}
             />
           </span>
-          <span className="w-1/2 flex flex-col justify-center items-start">
+          <span className=" md:w-1/2 w-[80%] flex flex-col justify-center items-start">
             <label htmlFor="Password" className="text-sm opacity-80">
               Password
             </label>
@@ -57,18 +57,18 @@ function Login() {
               {...register("password")}
             />
           </span>
-          <span className="w-1/2 text-sm opacity-75">
+          <span className="md:w-1/2 text-center text-sm opacity-75">
             If you not register then go{" "}
             <Link className="text-blue-600    underline" to={"/auth/register"}>
               Register
             </Link>
           </span>
-          <button className="px-10 text-white rounded-xl hover:bg-blue-600 duration-300 hover:scale-105 py-2 bg-blue-500">
+          <button className="md:px-10 px-12 py-3 text-2xl text-white rounded-xl hover:bg-blue-600 duration-300 hover:scale-105 md:py-2 bg-blue-500">
             Login
           </button>
         </form>
       </div>
-      <div className="w-1/2 h-full">
+      <div className=" lg:w-1/2 lg:h-full md:w-[30%] h-[70%] md:flex hidden ">
         <img className="h-full w-full" src="/assets/Auth/login.jpg" alt="" />
       </div>
     </div>

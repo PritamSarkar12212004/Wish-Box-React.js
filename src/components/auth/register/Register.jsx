@@ -27,15 +27,17 @@ function Register() {
   };
   return (
     <div className="w-full h-[91.8vh] flex  ">
-      <div className="w-1/2  h-full flex justify-center items-center">
+      <div className="md:w-1/2 w-full  h-full flex justify-center items-center">
         <form
           action=""
-          className="w-[80%] h-[80%] bg-zinc-200 rounded-xl flex flex-col justify-center items-center gap-5"
+          className="md:w-[80%] w-[90%] h-[80%] bg-zinc-200 rounded-xl flex flex-col justify-center items-center gap-5"
           onSubmit={handleSubmit(formController)}
         >
-          <h1 className="text-4xl font-bold text-blue-600 mb-10">Register</h1>
-          <span className="w-1/2 flex flex-col justify-center items-start">
-            <label htmlFor="name" className="text-sm opacity-80">
+          <h1 className="md:text-4xl text-5xl font-bold text-blue-600 mb-10">
+            Register
+          </h1>
+          <span className="md:w-1/2  w-[80%] flex flex-col justify-center items-start">
+            <label htmlFor="name" className="md:text-sm opacity-80">
               Name
             </label>
             <input
@@ -47,7 +49,7 @@ function Register() {
               {...register("name")}
             />
           </span>
-          <span className="w-1/2 flex flex-col justify-center items-start">
+          <span className="md:w-1/2  w-[80%] flex flex-col justify-center items-start">
             <label htmlFor="nummber" className="text-sm opacity-80">
               Number
             </label>
@@ -60,7 +62,7 @@ function Register() {
               {...register("phoneNumber")}
             />
           </span>
-          <span className="w-1/2 flex flex-col justify-center items-start">
+          <span className="md:w-1/2  w-[80%] flex flex-col justify-center items-start">
             <label htmlFor="Password" className="text-sm opacity-80">
               Password
             </label>
@@ -73,18 +75,18 @@ function Register() {
               {...register("password")}
             />
           </span>
-          <span className="w-1/2 text-sm opacity-75">
+          <span className="md:w-1/2   text-sm opacity-75">
             If you alradey registerd then go{" "}
             <Link className="text-blue-600  underline" to={"/auth/login"}>
               Login
             </Link>
           </span>
-          <button className="px-10 text-white rounded-xl hover:bg-blue-600 duration-300 hover:scale-105 py-2 bg-blue-500">
+          <button className="md:px-10 px-12  text-white rounded-xl hover:bg-blue-600 duration-300 hover:scale-105 md:py-2 py-3 bg-blue-500">
             Register
           </button>
         </form>
       </div>
-      <div className="w-1/2 h-full">
+      <div className="md:w-1/2 md:h-full md:flex hidden ">
         <img className="h-full w-full" src="/assets/Auth/login.jpg" alt="" />
       </div>
     </div>
