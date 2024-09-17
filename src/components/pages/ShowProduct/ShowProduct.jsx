@@ -10,14 +10,61 @@ function ShowProduct() {
   const responseController = (res) => {
     setresponse(res);
     setMainimage(res.uploadedImageURLs[0]);
+    likeCheker(res);
+    cartCheker(res);
+  };
+  const [likeresponse, setlikeresponse] = useState("");
+  const [cartresponse, setcartresponse] = useState("");
+  const likeController = (data) => {
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/like", { data, auth })
+      .then((res) => setlikeresponse(res.data))
+      .catch((err) => console.log(err));
+  };
+  const cartController = (data) => {
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/cart", { data, auth })
+      .then((res) => setcartresponse(res.data))
+      .catch((err) => console.log(err));
+  };
+  const likeRemoveController = (data) => {
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/like/remove", { data, auth })
+      .then((res) => setlikeresponse(res.data))
+      .catch((err) => console.log(err));
+  };
+  const cartRemoveController = (data) => {
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/cart/remove", { data, auth })
+      .then((res) => setcartresponse(res.data))
+      .catch((err) => console.log(err));
+  };
+  const [like, setlike] = useState();
+  const [cart, setcart] = useState();
+  const likeCheker = (data) => {
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/like/chekar", { data, auth })
+      .then((res) => setlike(res.data))
+      .catch((err) => console.log(err));
+  };
+  const cartCheker = (data) => {
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/cart/chekar", { data, auth })
+      .then((res) => setcart(res.data))
+      .catch((err) => console.log(err));
   };
   useEffect(() => {
     axiosInstance
       .post(`/find/product`, params)
       .then((res) => responseController(res.data))
       .catch((err) => console.log(err));
-  }, []);
-
+  }, [like, likeresponse, cart, cartresponse]);
   return (
     <div className="h-[91.8vh] w-full overflow-y-auto flex gap-1 flex-col  ">
       {response ? (
@@ -104,18 +151,43 @@ function ShowProduct() {
                 {response.ProductDescription}
               </span>
             </div>
-            <span className="flex md:gap-3 gap-2">
-              <button className="text-lg md:px-7 px-3 text-red-500 py-2  border-2 border-red-400 rounded">
-                {" "}
-                <i class="ri-heart-3-line"></i> Add favorite{" "}
-              </button>
-              <button className="text-lg px-7 font-bold py-2 text-white bg-red-500  rounded">
-                {" "}
-                <i class="ri-shopping-cart-2-line"></i> Add TO Cart{" "}
-              </button>
+            <span className="flex md:gap-3 gap-2 md:justify-normal justify-between md:mt-0 mt-3">
+              {like ? (
+                <button
+                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-red-500 py-2  border-2 border-red-400 rounded-md"
+                  onClick={() => likeRemoveController(response)}
+                >
+                  {" "}
+                  <i class="ri-heart-2-fill"></i> Remove favorite{" "}
+                </button>
+              ) : (
+                <button
+                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
+                  onClick={() => likeController(response)}
+                >
+                  {" "}
+                  <i class="ri-heart-3-line"></i> Add favorite{" "}
+                </button>
+              )}
+              {cart ? (
+                <button
+                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-red-500 py-2  border-2 border-red-400 rounded-md"
+                  onClick={() => cartRemoveController(response)}
+                >
+                  {" "}
+                  <i class="ri-shopping-cart-2-fill"></i> Remove TO Cart{" "}
+                </button>
+              ) : (
+                <button
+                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
+                  onClick={() => cartController(response)}
+                >
+                  {" "}
+                  <i class="ri-shopping-cart-2-line"></i> Add TO Cart{" "}
+                </button>
+              )}
             </span>
           </div>
-          {/* <OptionProduct/> */}
         </div>
       ) : (
         <LoadingProduct />
