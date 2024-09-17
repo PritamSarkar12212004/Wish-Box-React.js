@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 import LoadingProduct from "../../loading/LoadingProduct";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+
 function ShowProduct() {
   const params = useParams();
   const [mainImage, setMainimage] = useState("");
@@ -13,22 +14,43 @@ function ShowProduct() {
     likeCheker(res);
     cartCheker(res);
   };
+
   const [likeresponse, setlikeresponse] = useState("");
   const [cartresponse, setcartresponse] = useState("");
+  
+  const [likeLoading, setLikeLoading] = useState(false); // Loading state for "Add favorite"
+  const [cartLoading, setCartLoading] = useState(false); // Loading state for "Add to Cart"
+
   const likeController = (data) => {
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    setLikeLoading(true); // Start loading for "Add favorite"
     axiosInstance
       .post("/shoping/like", { data, auth })
-      .then((res) => setlikeresponse(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setlikeresponse(res.data);
+        setLikeLoading(false); // Stop loading after response
+      })
+      .catch((err) => {
+        console.log(err);
+        setLikeLoading(false); // Stop loading in case of error
+      });
   };
+
   const cartController = (data) => {
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    setCartLoading(true); // Start loading for "Add to Cart"
     axiosInstance
       .post("/shoping/cart", { data, auth })
-      .then((res) => setcartresponse(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setcartresponse(res.data);
+        setCartLoading(false); // Stop loading after response
+      })
+      .catch((err) => {
+        console.log(err);
+        setCartLoading(false); // Stop loading in case of error
+      });
   };
+
   const likeRemoveController = (data) => {
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     axiosInstance
@@ -36,7 +58,7 @@ function ShowProduct() {
       .then((res) => setlikeresponse(res.data))
       .catch((err) => console.log(err));
   };
-  
+
   const [like, setlike] = useState();
   const [cart, setcart] = useState();
   const likeCheker = (data) => {
@@ -46,6 +68,7 @@ function ShowProduct() {
       .then((res) => setlike(res.data))
       .catch((err) => console.log(err));
   };
+  
   const cartCheker = (data) => {
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     axiosInstance
@@ -53,17 +76,21 @@ function ShowProduct() {
       .then((res) => setcart(res.data))
       .catch((err) => console.log(err));
   };
+
   const navigate = useNavigate();
+
   useEffect(() => {
     axiosInstance
       .post(`/find/product`, params)
       .then((res) => responseController(res.data))
       .catch((err) => console.log(err));
   }, [like, likeresponse, cart, cartresponse]);
+
   return (
-    <div className="h-[91.8vh] w-full overflow-y-auto flex gap-1 flex-col  ">
+    <div className="md:h-[91.8vh]  w-full overflow-y-auto flex gap-1 flex-col">
       {response ? (
         <div className="w-full h-full flex md:flex-row flex-col  px-2 py-3">
+          {/* Image rendering */}
           <div className="flex">
             <div className="h-[50%] w-16  md:flex md:flex-col hidden gap-3">
               {response.uploadedImageURLs.map((res, index) => {
@@ -71,7 +98,7 @@ function ShowProduct() {
                   <img
                     key={index}
                     src={res}
-                    className=" rounded-md cursor-pointer hover:scale-105 duration-300"
+                    className="rounded-md cursor-pointer hover:scale-105 duration-300"
                     alt=""
                     onMouseEnter={() => setMainimage(res)}
                     onClick={() => setMainimage(res)}
@@ -83,26 +110,14 @@ function ShowProduct() {
           <div className="md:px-20 flex flex-col items-center gap-5 px-1">
             <img
               src={mainImage}
-              className=" md:h-[85%] md:w-[50vw] w-auto  rounded-xl h-[70vh]"
+              className="md:h-[85%] md:w-[50vw] w-auto  rounded-xl h-[70vh]"
               alt=""
             />
           </div>
-          <div className="h-20 w-16 mt-5  md:hidden flex gap-3">
-            {response.uploadedImageURLs.map((res, index) => {
-              return (
-                <img
-                  key={index}
-                  src={res}
-                  className=" h-full w-full rounded-md cursor-pointer hover:scale-105 duration-300"
-                  alt=""
-                  onMouseEnter={() => setMainimage(res)}
-                  onClick={() => setMainimage(res)}
-                />
-              );
-            })}
-          </div>
+
+          {/* Product details */}
           <div className="flex flex-col md:gap-3 gap-1 md:mt-0 mt-5 w-full md:px-0 px-2">
-            <h1 className=" capitalize md:text-4xl text-2xl  opacity-60 font-bold  font-serif">
+            <h1 className="capitalize md:text-4xl text-2xl opacity-60 font-bold font-serif">
               {response.ProductName}
             </h1>
             <h1 className="flex items-center gap-5">
@@ -112,76 +127,54 @@ function ShowProduct() {
                   {response.ProductPrice}
                 </span>
               </div>
-              <span className="text-2xl opacity-65">
-                (Pack Of 6 pcs) <i class="ri-shopping-bag-fill"></i>
-              </span>
+              <span className="text-2xl opacity-65">(Pack Of 6 pcs)</span>
             </h1>
-            <span className="px-3 w-24 py-1  rounded-md bg-green-500 text-2xl text-white flex items-center justify-center gap-2 ">
-              4.0 <i class="ri-bard-line"></i>
+            <span className="px-3 w-24 py-1 rounded-md bg-green-500 text-2xl text-white flex items-center justify-center gap-2">
+              4.0
             </span>
-            <span className="md:mt-0 mt-2">
-              <h1 className="text-2xl font-bold font-mono">
-                {" "}
-                Type:{" "}
-                <span className=" font-normal opacity-90">
-                  {response.ProductCategory}
-                </span>
-              </h1>
-              <span className="text-2xl flex  items-center md:gap-10 gap-5 mt-3">
-                <span className="flex items-center gap-3">
-                  <i class="ri-expand-vertical-line"></i>
-                  {response.ProductLength}
-                </span>
-                <span className="flex items-center gap-3">
-                  <i class="ri-expand-horizontal-line"></i>
-                  {response.ProductWidth}
-                </span>
-              </span>
-            </span>
-            <div className=" md:w-[80%] w-[95%]">
+
+            {/* Product description */}
+            <div className="md:w-[80%] w-[95%]">
               <h1 className="text-2xl font-bold opacity-80 mt-10">
-                Product detiles
+                Product details
               </h1>
               <span className="md:text-medium text-lg">
                 {response.ProductDescription}
               </span>
             </div>
+
+            {/* Favorite and Cart buttons */}
             <span className="flex md:gap-3 gap-2 md:justify-normal justify-between md:mt-0 mt-3">
               {like ? (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw]  text-red-500 py-2  border-2 border-red-400 rounded-md"
+                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw] text-red-500 py-2 border-2 border-red-400 rounded-md"
                   onClick={() => likeRemoveController(response)}
                 >
-                  {" "}
-                  <i class="ri-heart-2-fill"></i> Remove favorite{" "}
+                  <i className="ri-heart-2-fill"></i> Remove favorite
                 </button>
               ) : (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
+                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw] text-blue-600 py-2 border-2 border-blue-600 rounded-md"
                   onClick={() => likeController(response)}
+                  disabled={likeLoading} // Disable the button while loading
                 >
-                  {" "}
-                  <i class="ri-heart-3-line"></i> Add favorite{" "}
+                  {likeLoading ? "Adding..." : <><i className="ri-heart-3-line"></i> Add favorite</>}
                 </button>
               )}
               {cart ? (
                 <button
-                  className="text-lg md:px-7  md:w-56 w-[45vw] flex items-center justify-center gap-4  text-orange-500 py-2  border-2 border-orange-400 rounded-md"
+                  className="text-lg md:px-7 md:w-56 w-[45vw] flex items-center justify-center gap-4 text-orange-500 py-2 border-2 border-orange-400 rounded-md"
                   onClick={() => navigate("/cart")}
                 >
-                  {" "}
-                  Go to Cart{" "}
-                  <span className="text-2xl">
-                    <i class="ri-arrow-right-s-line"></i>
-                  </span>
+                  Go to Cart <span className="text-2xl"><i className="ri-arrow-right-s-line"></i></span>
                 </button>
               ) : (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
+                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw] text-blue-600 py-2 border-2 border-blue-600 rounded-md"
                   onClick={() => cartController(response)}
+                  disabled={cartLoading} // Disable the button while loading
                 >
-                  {" "}
-                  <i class="ri-shopping-cart-2-line"></i> Add To Cart{" "}
+                  {cartLoading ? "Adding to Cart..." : <><i className="ri-shopping-cart-2-line"></i> Add to Cart</>}
                 </button>
               )}
             </span>
