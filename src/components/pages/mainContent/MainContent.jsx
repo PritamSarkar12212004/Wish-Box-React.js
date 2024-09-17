@@ -21,13 +21,13 @@ function MainContent() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className="w-[100vw] h-[91.7vh] md:px-4   flex   justify-center flex-col     ">
+    <div className="w-[100vw] md:h-[91.7vh] md:px-4   flex   justify-center flex-col     ">
       {response.length === 0 ? (
         <LoadingProduct />
       ) : (
         <>
           {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
-          <div className="w-full h-full flex flex-wrap overflow-y-auto  justify-center md:gap-5 gap-4">
+          <div className="w-full h-full flex flex-wrap overflow-y-auto  justify-center md:gap-5 gap-4 py-2">
             {response.map((item, index) => (
               <Cards key={index} img={item} popAuth={popAuth} response={item} />
             ))}

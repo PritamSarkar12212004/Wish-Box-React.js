@@ -1,6 +1,6 @@
 import axios from "axios";
 const axiosInstance = axios.create({
-  baseURL: "http://192.168.0.105:3000",
+  baseURL: "https://wish-box-backend.vercel.app",
 });
 
 export default axiosInstance;

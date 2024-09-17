@@ -84,12 +84,6 @@ function NavBar() {
                   </span>
                 </NavLink>
               </button>
-              <span
-                className="text-3xl  text-orange-600 cursor-pointer"
-                onClick={() => setnotibar(!notibar)}
-              >
-                <i class="ri-chat-4-fill"></i>
-              </span>
 
               <button className=" px-4 py-2 bg-blue-500 rounded-xl text-white text-lg hover:bg-blue-600 duration-300">
                 <NavLink>Catelog</NavLink>
@@ -97,7 +91,7 @@ function NavBar() {
             </>
           ) : null}
           <span className="text-3xl cursor-pointer">
-            <NavLink to={"/dashbord"} >
+            <NavLink to={"/dashbord"}>
               <i class="ri-user-fill"></i>
             </NavLink>
           </span>

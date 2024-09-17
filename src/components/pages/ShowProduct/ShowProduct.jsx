@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 import LoadingProduct from "../../loading/LoadingProduct";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
@@ -36,13 +36,7 @@ function ShowProduct() {
       .then((res) => setlikeresponse(res.data))
       .catch((err) => console.log(err));
   };
-  const cartRemoveController = (data) => {
-    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
-    axiosInstance
-      .post("/shoping/cart/remove", { data, auth })
-      .then((res) => setcartresponse(res.data))
-      .catch((err) => console.log(err));
-  };
+  
   const [like, setlike] = useState();
   const [cart, setcart] = useState();
   const likeCheker = (data) => {
@@ -59,6 +53,7 @@ function ShowProduct() {
       .then((res) => setcart(res.data))
       .catch((err) => console.log(err));
   };
+  const navigate = useNavigate();
   useEffect(() => {
     axiosInstance
       .post(`/find/product`, params)
@@ -88,7 +83,7 @@ function ShowProduct() {
           <div className="md:px-20 flex flex-col items-center gap-5 px-1">
             <img
               src={mainImage}
-              className=" md:h-[85%] md:w-[35vw] w-auto  rounded-xl h-[70vh]"
+              className=" md:h-[85%] md:w-[50vw] w-auto  rounded-xl h-[70vh]"
               alt=""
             />
           </div>
@@ -154,7 +149,7 @@ function ShowProduct() {
             <span className="flex md:gap-3 gap-2 md:justify-normal justify-between md:mt-0 mt-3">
               {like ? (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-red-500 py-2  border-2 border-red-400 rounded-md"
+                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw]  text-red-500 py-2  border-2 border-red-400 rounded-md"
                   onClick={() => likeRemoveController(response)}
                 >
                   {" "}
@@ -162,7 +157,7 @@ function ShowProduct() {
                 </button>
               ) : (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
+                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
                   onClick={() => likeController(response)}
                 >
                   {" "}
@@ -171,19 +166,22 @@ function ShowProduct() {
               )}
               {cart ? (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-red-500 py-2  border-2 border-red-400 rounded-md"
-                  onClick={() => cartRemoveController(response)}
+                  className="text-lg md:px-7  md:w-56 w-[45vw] flex items-center justify-center gap-4  text-orange-500 py-2  border-2 border-orange-400 rounded-md"
+                  onClick={() => navigate("/cart")}
                 >
                   {" "}
-                  <i class="ri-shopping-cart-2-fill"></i> Remove TO Cart{" "}
+                  Go to Cart{" "}
+                  <span className="text-2xl">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
                 </button>
               ) : (
                 <button
-                  className="text-lg md:px-7 px-2 md:w-0 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
+                  className="text-lg md:px-7 px-2 md:w-56 w-[45vw]  text-blue-600 py-2  border-2 border-blue-600 rounded-md"
                   onClick={() => cartController(response)}
                 >
                   {" "}
-                  <i class="ri-shopping-cart-2-line"></i> Add TO Cart{" "}
+                  <i class="ri-shopping-cart-2-line"></i> Add To Cart{" "}
                 </button>
               )}
             </span>
