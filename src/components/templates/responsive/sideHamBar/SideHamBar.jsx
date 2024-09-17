@@ -1,10 +1,25 @@
 import React, { useContext, useState } from "react";
 import ContextMaker from "../../../../context/ContextMaker";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import axiosInstance from "../../../../utils/axios/AxiosConfig";
 
 function SideHamBar() {
   const { sidebarHam, setsidebarHam } = useContext(ContextMaker);
   const [option, setoption] = useState(false);
+  const [admin, setadmin] = useState(false);
+  console.log(admin)
+  const authFinder = localStorage.getItem("AuthUSerData");
+  const logOut = () => {
+    localStorage.removeItem("AuthUSerData");
+    window.location.reload();
+  };
+  useEffect(() => {
+    axiosInstance
+      .post("/auth/admin", JSON.parse(authFinder))
+      .then((res) => setadmin(res.data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div
       className={`${
@@ -34,54 +49,73 @@ function SideHamBar() {
         <li className="border-b-2  border-transparent duration-300 px-6 py-2  hover:bg-zinc-300/30 backdrop-blur-md rounded-2xl outline-none">
           Setting
         </li>
-        <li onClick={() => setoption(!option)}>
-          Admin{" "}
-          {option ? (
-            <i class="ri-arrow-down-s-line"></i>
-          ) : (
-            <i class="ri-arrow-up-s-line"></i>
-          )}{" "}
-        </li>
-        <span
-          className={`w-full h-56 overflow-hidden duration-300 flex flex-col  items-center justify-center`}
-        >
-          <span
-            className={`${
-              option ? "h-full" : "h-0"
-            } flex flex-col items-center justify-center overflow-hidden duration-300 `}
+        
+        {
+          authFinder ? (
+          <div>
+            {admin ? (
+              <>
+                <li onClick={() => setoption(!option)}>
+                  Admin{" "}
+                  {option ? (
+                    <i class="ri-arrow-down-s-line"></i>
+                  ) : (
+                    <i class="ri-arrow-up-s-line"></i>
+                  )}{" "}
+                </li>
+                <span
+                  className={`w-full h-56 overflow-hidden duration-300 flex flex-col  items-center justify-center`}
+                >
+                  <span
+                    className={`${
+                      option ? "h-full" : "h-0"
+                    } flex flex-col items-center justify-center overflow-hidden duration-300 `}
+                  >
+                    <li className="border-b-2  border-transparent duration-300 px-6 py-2   outline-none">
+                      <NavLink
+                        to={"/dashbord"}
+                        onClick={() => setsidebarHam(!sidebarHam)}
+                      >
+                        Dash Bord
+                      </NavLink>
+                    </li>
+                    <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
+                      <NavLink
+                        to={"/dashbord/adminuser"}
+                        onClick={() => setsidebarHam(!sidebarHam)}
+                      >
+                        Users
+                      </NavLink>
+                    </li>
+                    <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
+                      <NavLink
+                        to={"/dashbord/adminproducts"}
+                        onClick={() => setsidebarHam(!sidebarHam)}
+                      >
+                        Products
+                      </NavLink>
+                    </li>
+                    <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
+                      Produts
+                    </li>
+                    <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
+                      Notifications
+                    </li>
+                  </span>
+                </span>
+              </>
+              ) : null}
+              </div>
+          ):null
+      }
+        {authFinder ? (
+          <li
+            className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none"
+            onClick={() => logOut()}
           >
-            <li className="border-b-2  border-transparent duration-300 px-6 py-2   outline-none">
-              <NavLink
-                to={"/dashbord"}
-                onClick={() => setsidebarHam(!sidebarHam)}
-              >
-                Dash Bord
-              </NavLink>
-            </li>
-            <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
-              <NavLink
-                to={"/dashbord/adminuser"}
-                onClick={() => setsidebarHam(!sidebarHam)}
-              >
-                Users
-              </NavLink>
-            </li>
-            <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
-              <NavLink
-                to={"/dashbord/adminproducts"}
-                onClick={() => setsidebarHam(!sidebarHam)}
-              >
-                Products
-              </NavLink>
-            </li>
-            <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
-              Produts
-            </li>
-            <li className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none">
-              Notifications
-            </li>
-          </span>
-        </span>
+            Log Out
+          </li>
+        ) : null}
       </ul>
     </div>
   );

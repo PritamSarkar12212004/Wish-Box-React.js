@@ -23,6 +23,7 @@ function Register() {
       localStorage.setItem("AuthUSerData", JSON.stringify(authData.data));
       reset();
       navigate("/");
+      window.location.reload();
     }
   };
   return (

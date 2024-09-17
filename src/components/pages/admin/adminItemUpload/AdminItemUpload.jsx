@@ -115,6 +115,16 @@ function AdminItemUpload() {
             <option value="Kite">Kite</option>
             <option value="PomPom">PomPom</option>
             <option value="Pataka">Pataka</option>
+            <option value="3D_paper_hangings">3D paper hangings</option>
+            <option value="Paper_Hangings">Paper Hangings</option>
+            <option value="paper_Garlands">paper Garlands</option>
+            <option value="Pataka_buntings">Pataka buntings</option>
+            <option value="Paper_fans">Paper fans</option>
+            <option value="Paper_flowers">Paper flowers</option>
+            <option value="Tissue_Pom_poms">Tissue Pom poms</option>
+            <option value="THoneycomb_balls_Decore">
+              Honeycomb balls Decore
+            </option>
           </select>
           <input
             required

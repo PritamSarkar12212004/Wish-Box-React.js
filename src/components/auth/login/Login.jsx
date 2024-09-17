@@ -22,6 +22,7 @@ function Login() {
       localStorage.setItem("AuthUSerData", JSON.stringify(res.data));
       reset();
       navigate("/");
+      window.location.reload();
     }
   };
   return (

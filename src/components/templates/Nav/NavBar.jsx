@@ -5,6 +5,7 @@ import PopUp from "../../auth/PopUpWindow/PopUp";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 
 function NavBar() {
+  const [admin, setadmin] = useState(false);
   const navigate = useNavigate();
   const authFinder = localStorage.getItem("AuthUSerData");
   const [popUp, setpopUp] = useState(false);
@@ -14,8 +15,12 @@ function NavBar() {
   const [routeName, setRouteName] = useState();
   const location = useLocation();
   useEffect(() => {
+    axiosInstance
+      .post("/auth/admin", JSON.parse(authFinder))
+      .then((res) => setadmin(res.data))
+      .catch((err) => console.log(err));
     setRouteName(location.pathname);
-  }, [location]);
+  }, [location,authFinder]);
   return (
     <div className="lg:w-[full] lg:h-14  lg:text-xl md:h-12 md:text-medium sm:text-sm  h-14 w-[100w] border-b-[1px] border-b-gray-300 px-3 py-1 flex items-center justify-between ">
       {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
@@ -90,13 +95,16 @@ function NavBar() {
               </button>
             </>
           ) : null}
-          <span className="text-3xl cursor-pointer">
-            <NavLink to={"/dashbord"}>
-              <i class="ri-user-fill"></i>
-            </NavLink>
-          </span>
+          {admin ? (
+            <span className="text-3xl cursor-pointer">
+              <NavLink to={"/dashbord"}>
+                <i class="ri-user-fill"></i>
+              </NavLink>
+            </span>
+          ) : null}
         </ul>
       </div>
+
       <button
         className="md:hidden flex text-4xl"
         onClick={() => setsidebarHam(!sidebarHam)}
