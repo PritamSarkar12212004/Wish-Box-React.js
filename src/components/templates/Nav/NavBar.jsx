@@ -6,12 +6,10 @@ import axiosInstance from "../../../utils/axios/AxiosConfig";
 
 function NavBar() {
   const [admin, setadmin] = useState(false);
-  const navigate = useNavigate();
   const authFinder = localStorage.getItem("AuthUSerData");
   const [popUp, setpopUp] = useState(false);
 
-  const { notibar, setnotibar, sidebarHam, setsidebarHam } =
-    useContext(ContextMaker);
+  const { sidebarHam, setsidebarHam } = useContext(ContextMaker);
   const [routeName, setRouteName] = useState();
   const location = useLocation();
   useEffect(() => {
@@ -20,7 +18,7 @@ function NavBar() {
       .then((res) => setadmin(res.data))
       .catch((err) => console.log(err));
     setRouteName(location.pathname);
-  }, [location,authFinder]);
+  }, [location, authFinder]);
   return (
     <div className="lg:w-[full] lg:h-14  lg:text-xl md:h-12 md:text-medium sm:text-sm  h-14 w-[100w] border-b-[1px] border-b-gray-300 px-3 py-1 flex items-center justify-between ">
       {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
@@ -39,14 +37,14 @@ function NavBar() {
             <NavLink to={"/product"}>Product</NavLink>
           </li>
           <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600  md:flex hidden">
-            <NavLink>About</NavLink>
+            <NavLink to={"/about"}>About</NavLink>
           </li>
           <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 md:flex hidden ">
-            <NavLink>Contact</NavLink>
+            <NavLink to={"/contact"}>Contact</NavLink>
           </li>
         </ul>
       </div>
-      {routeName === "/product" ? (
+      {routeName === "/product" || "/product/show/:id" ? (
         <select name="" id="" className=" md:flex hidden">
           <option value="">All</option>
           <option value="">cwf</option>
@@ -61,7 +59,7 @@ function NavBar() {
           <option value="">cwf</option>
         </select>
       ) : null}
-      {routeName === "/product" ? (
+      {routeName === "/product" || "/product/show/:id" ? (
         <input
           type="text"
           placeholder="Search Items"
@@ -73,7 +71,7 @@ function NavBar() {
 
       <div className="  md:flex hidden">
         <ul className="flex  h-full items-center gap-10 ml-3">
-          {routeName === "/product" ? (
+          {routeName === "/product" || "/product/show/:id" ? (
             <>
               <button>
                 <NavLink to={"/like"}>
