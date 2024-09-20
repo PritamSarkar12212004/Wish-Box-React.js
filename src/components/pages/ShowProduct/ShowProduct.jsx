@@ -25,6 +25,7 @@ function ShowProduct() {
   const [cartLoading, setCartLoading] = useState(false); // Loading state for "Add to Cart"
 
   const likeController = (data) => {
+    document.title="Product"
     setresponseLoader(true); // Start loading for "Add favorite"
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     setLikeLoading(true); // Start loading for "Add favorite"
@@ -128,13 +129,13 @@ function ShowProduct() {
             />
           </div>
           <div className="flex w-full md:hidden ">
-            <div className="h-[50%] w-16  md:hidden flex  gap-3">
+            <div className="h-[40%] w-16  md:hidden flex  gap-3">
               {response.uploadedImageURLs.map((res, index) => {
                 return (
                   <img
                     key={index}
                     src={res}
-                    className="rounded-md cursor-pointer hover:scale-105 duration-300"
+                    className="rounded-md cursor-pointer  mt-5"
                     alt=""
                     onMouseEnter={() => setMainimage(res)}
                     onClick={() => setMainimage(res)}
