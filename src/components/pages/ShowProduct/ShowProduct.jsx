@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 import LoadingProduct from "../../loading/LoadingProduct";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import ResponsEloading from "../Landing/ResponsEloading";
 
 function ShowProduct() {
   const params = useParams();
@@ -15,13 +16,16 @@ function ShowProduct() {
     cartCheker(res);
   };
 
+  const [responseLoader, setresponseLoader] = useState(false);
+
   const [likeresponse, setlikeresponse] = useState("");
   const [cartresponse, setcartresponse] = useState("");
-  
+
   const [likeLoading, setLikeLoading] = useState(false); // Loading state for "Add favorite"
   const [cartLoading, setCartLoading] = useState(false); // Loading state for "Add to Cart"
 
   const likeController = (data) => {
+    setresponseLoader(true); // Start loading for "Add favorite"
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     setLikeLoading(true); // Start loading for "Add favorite"
     axiosInstance
@@ -29,6 +33,7 @@ function ShowProduct() {
       .then((res) => {
         setlikeresponse(res.data);
         setLikeLoading(false); // Stop loading after response
+        setresponseLoader(false); // Stop loading after response
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +42,8 @@ function ShowProduct() {
   };
 
   const cartController = (data) => {
+    setresponseLoader(true); // Start loading for "Add to Cart"
+
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     setCartLoading(true); // Start loading for "Add to Cart"
     axiosInstance
@@ -44,6 +51,7 @@ function ShowProduct() {
       .then((res) => {
         setcartresponse(res.data);
         setCartLoading(false); // Stop loading after response
+        setresponseLoader(false); // Stop loading after response
       })
       .catch((err) => {
         console.log(err);
@@ -52,10 +60,14 @@ function ShowProduct() {
   };
 
   const likeRemoveController = (data) => {
+    setresponseLoader(true); // Start loading for "Add favorite"
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     axiosInstance
       .post("/shoping/like/remove", { data, auth })
-      .then((res) => setlikeresponse(res.data))
+      .then((res) => {
+        setlikeresponse(res.data);
+        setresponseLoader(false); // Stop loading after response
+      })
       .catch((err) => console.log(err));
   };
 
@@ -68,7 +80,7 @@ function ShowProduct() {
       .then((res) => setlike(res.data))
       .catch((err) => console.log(err));
   };
-  
+
   const cartCheker = (data) => {
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     axiosInstance
@@ -88,6 +100,7 @@ function ShowProduct() {
 
   return (
     <div className="md:h-[91.8vh]  w-full overflow-y-auto flex gap-1 flex-col">
+      {responseLoader ? <ResponsEloading /> : null}
       {response ? (
         <div className="w-full h-full flex md:flex-row flex-col  px-2 py-3">
           {/* Image rendering */}
@@ -107,10 +120,10 @@ function ShowProduct() {
               })}
             </div>
           </div>
-          <div className="md:px-20 flex flex-col items-center gap-5 px-1">
+          <div className="md:px-20 flex flex-col items-center gap-5 px-1 w-full">
             <img
               src={mainImage}
-              className="md:h-[85%] md:w-[50vw] w-auto  rounded-xl h-[70vh]"
+              className="md:h-[85%] md:w-[50vw] w-auto  rounded-xl max-h-[70vh]"
               alt=""
             />
           </div>
@@ -158,7 +171,13 @@ function ShowProduct() {
                   onClick={() => likeController(response)}
                   disabled={likeLoading} // Disable the button while loading
                 >
-                  {likeLoading ? "Adding..." : <><i className="ri-heart-3-line"></i> Add favorite</>}
+                  {likeLoading ? (
+                    "Adding..."
+                  ) : (
+                    <>
+                      <i className="ri-heart-3-line"></i> Add favorite
+                    </>
+                  )}
                 </button>
               )}
               {cart ? (
@@ -166,7 +185,10 @@ function ShowProduct() {
                   className="text-lg md:px-7 md:w-56 w-[45vw] flex items-center justify-center gap-4 text-orange-500 py-2 border-2 border-orange-400 rounded-md"
                   onClick={() => navigate("/cart")}
                 >
-                  Go to Cart <span className="text-2xl"><i className="ri-arrow-right-s-line"></i></span>
+                  Go to Cart{" "}
+                  <span className="text-2xl">
+                    <i className="ri-arrow-right-s-line"></i>
+                  </span>
                 </button>
               ) : (
                 <button
@@ -174,7 +196,13 @@ function ShowProduct() {
                   onClick={() => cartController(response)}
                   disabled={cartLoading} // Disable the button while loading
                 >
-                  {cartLoading ? "Adding to Cart..." : <><i className="ri-shopping-cart-2-line"></i> Add to Cart</>}
+                  {cartLoading ? (
+                    "Adding to Cart..."
+                  ) : (
+                    <>
+                      <i className="ri-shopping-cart-2-line"></i> Add to Cart
+                    </>
+                  )}
                 </button>
               )}
             </span>

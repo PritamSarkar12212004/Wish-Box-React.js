@@ -4,15 +4,21 @@ import CartLodaer from "../../loading/CartLodaer";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { useNavigate } from "react-router-dom";
 import PlaceOrder from "./bottomPlaceOrder/PlaceOrder";
+import ResponsEloading from "../Landing/ResponsEloading";
 function Cart() {
+  const [responseLoader, setResposeLoader] = useState(false);
   const [response, setresponse] = useState([]);
   const [cartresponse, setcartresponse] = useState("");
   const navigate = useNavigate();
   const cartRemoveController = (data) => {
+    setResposeLoader(true);
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     axiosInstance
       .post("/shoping/cart/remove", { data, auth })
-      .then((res) => setcartresponse(res.data))
+      .then((res) => {
+        setResposeLoader(false);
+        setcartresponse(res.data);
+      })
       .catch((err) => console.log(err));
   };
   const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
@@ -24,6 +30,7 @@ function Cart() {
   }, [cartresponse]);
   return (
     <div className="w-full md:h-[91.8vh] h-[94vh] flex justify-center relative px-2">
+      {responseLoader ? <ResponsEloading /> : null}
       {response.length > 0 ? (
         <div className="md:w-[80%] w-full h-full flex  ">
           <div className="cart md:w-1/2 w-full h-full overflow-y-auto py-3">
@@ -93,7 +100,6 @@ function Cart() {
             </div>
           </div>
           <PlaceOrder />
-
         </div>
       ) : (
         <CartLodaer />
