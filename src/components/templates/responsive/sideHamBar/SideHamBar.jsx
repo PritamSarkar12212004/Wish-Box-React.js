@@ -44,6 +44,16 @@ function SideHamBar() {
           </NavLink>{" "}
         </li>
         <li className="border-b-2  border-transparent duration-300 px-6 py-2  hover:bg-zinc-300/30 backdrop-blur-md rounded-2xl outline-none">
+          <NavLink to={"/about"} onClick={() => setsidebarHam(!sidebarHam)}>
+            About
+          </NavLink>{" "}
+        </li>
+        <li className="border-b-2  border-transparent duration-300 px-6 py-2  hover:bg-zinc-300/30 backdrop-blur-md rounded-2xl outline-none">
+          <NavLink to={"/contact"} onClick={() => setsidebarHam(!sidebarHam)}>
+            Contact
+          </NavLink>{" "}
+        </li>
+        <li className="border-b-2  border-transparent duration-300 px-6 py-2  hover:bg-zinc-300/30 backdrop-blur-md rounded-2xl outline-none">
           Profile
         </li>
         <li className="border-b-2  border-transparent duration-300 px-6 py-2  hover:bg-zinc-300/30 backdrop-blur-md rounded-2xl outline-none">

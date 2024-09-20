@@ -35,7 +35,6 @@ function ShowProduct() {
   };
 
   const likeController = (data) => {
-    document.title = "Product";
     setresponseLoader(true);
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
     setLikeLoading(true);
@@ -51,7 +50,19 @@ function ShowProduct() {
         setLikeLoading(false);
       });
   };
+  const likeRemoveController = (data) => {
+    setresponseLoader(true);
 
+    const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
+    axiosInstance
+      .post("/shoping/like/remove", { data, auth })
+      .then((res) => {
+        setlikeresponse(res.data);
+        setresponseLoader(false);
+
+      })
+      .catch((err) => console.log(err));
+  };
   const cartController = (data) => {
     setresponseLoader(true);
     const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
@@ -231,4 +242,4 @@ function ShowProduct() {
   );
 }
 
-export default ShowProduct
+export default ShowProduct;
