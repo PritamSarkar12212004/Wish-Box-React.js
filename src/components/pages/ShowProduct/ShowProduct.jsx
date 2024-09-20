@@ -123,9 +123,25 @@ function ShowProduct() {
           <div className="md:px-20 flex flex-col items-center gap-5 px-1 w-full">
             <img
               src={mainImage}
-              className="md:h-[85%] md:w-[50vw] w-auto  rounded-xl max-h-[70vh]"
+              className="md:h-[85%] md:w-[50vw] w-auto  rounded-xl max-h-[50vh]"
               alt=""
             />
+          </div>
+          <div className="flex w-full md:hidden ">
+            <div className="h-[50%] w-16  md:hidden flex  gap-3">
+              {response.uploadedImageURLs.map((res, index) => {
+                return (
+                  <img
+                    key={index}
+                    src={res}
+                    className="rounded-md cursor-pointer hover:scale-105 duration-300"
+                    alt=""
+                    onMouseEnter={() => setMainimage(res)}
+                    onClick={() => setMainimage(res)}
+                  />
+                );
+              })}
+            </div>
           </div>
 
           {/* Product details */}
