@@ -9,9 +9,7 @@ function MainContent() {
   const [close, setclose] = useState(false);
   const [response, setresponse] = useState([]);
   const popAuth = () => {
-    {
-      localStorage.getItem("userData") ? null : setpopUp(true);
-    }
+    
     setclose(!close);
   };
   useEffect(() => {
@@ -21,12 +19,11 @@ function MainContent() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className="w-[100vw] md:h-[91.7vh]   flex   justify-center flex-col     ">
+    <div className="w-[100vw] md:h-[91.7vh] flex justify-center flex-col">
       {response.length === 0 ? (
         <LoadingProduct />
       ) : (
         <>
-          {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
           <div className="w-full h-full flex flex-wrap overflow-y-auto  justify-center md:gap-5 gap-4 pt-2">
             {response.map((item, index) => (
               <Cards key={index} img={item} popAuth={popAuth} response={item} />
