@@ -2,8 +2,8 @@ import React from "react";
 
 function LoadingProduct() {
   return (
-    <div className="w-full h-auto flex justify-center items-center">
-      <img src="/assets/loading/loading2.gif" alt="" />
+    <div className="w-full h-[91.1vh] flex justify-center items-center  backdrop-blur-lg">
+      <img src="/assets/loading/responseLoading.gif" alt="" />
     </div>
   );
 }

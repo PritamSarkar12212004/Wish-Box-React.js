@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
+import LogingAnimation from "../../loading/auth/LogingAnimation";
 function Login() {
   const navigate = useNavigate();
+  const [loader, setloader] = useState(false);
   document.title = "Login";
   const { register, handleSubmit, reset } = useForm();
   const LoginFormController = (data) => {
+    setloader(true);
     axiosInstance
       .post("/register/user/login", data)
       .then((res) => resController(res))
@@ -21,19 +24,23 @@ function Login() {
     } else {
       localStorage.setItem("AuthUSerData", JSON.stringify(res.data));
       reset();
+      setloader(false);
       navigate("/");
       window.location.reload();
     }
   };
   return (
     <div className="w-full h-[91.8vh] flex  ">
+      {loader ? <LogingAnimation /> : null}
       <div className="md:w-1/2  md:h-full w-full h-full flex justify-center items-center bg-white">
         <form
           action=""
           className="md:w-[70%] md:h-[80%] md:bg-zinc-200 bg-zinc-300/30 backdrop-blur-sm w-[90%] h-[60%] rounded-xl flex flex-col justify-center items-center gap-5"
           onSubmit={handleSubmit(LoginFormController)}
         >
-          <h1 className="md:text-4xl text-5xl font-bold text-blue-600 md:mb-10">Login</h1>
+          <h1 className="md:text-4xl text-5xl font-bold text-blue-600 md:mb-10">
+            Login
+          </h1>
           <span className="md:w-1/2 w-[80%] flex flex-col justify-center items-start">
             <label htmlFor="phoneNumber" className="text-sm opacity-80">
               Number

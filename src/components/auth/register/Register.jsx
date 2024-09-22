@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { json, Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
+import LogingAnimation from "../../loading/auth/LogingAnimation";
 function Register() {
   document.title = "Register";
   const [res, setres] = useState("das");
-  const [lodaer, setloader] = useState(true);
+  const [lodaer, setloader] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   const formController = async (data) => {
+    setloader(true);
     axiosInstance
       .post("/register/user", data)
       .then((res) => responseCoontroller(res))
       .catch((err) => console.log(err));
-    setloader(!lodaer);
   };
   const responseCoontroller = async (data) => {
     const authData = await data;
@@ -22,12 +23,14 @@ function Register() {
     } else {
       localStorage.setItem("AuthUSerData", JSON.stringify(authData.data));
       reset();
+      setloader(false);
       navigate("/");
       window.location.reload();
     }
   };
   return (
     <div className="w-full h-[91.8vh] flex  ">
+      {lodaer ? <LogingAnimation /> : null}
       <div className="md:w-1/2 w-full  h-full flex justify-center items-center">
         <form
           action=""

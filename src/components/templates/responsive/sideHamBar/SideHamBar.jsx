@@ -8,7 +8,7 @@ function SideHamBar() {
   const { sidebarHam, setsidebarHam } = useContext(ContextMaker);
   const [option, setoption] = useState(false);
   const [admin, setadmin] = useState(false);
-  console.log(admin)
+  console.log(admin);
   const authFinder = localStorage.getItem("AuthUSerData");
   const logOut = () => {
     localStorage.removeItem("AuthUSerData");
@@ -59,9 +59,8 @@ function SideHamBar() {
         <li className="border-b-2  border-transparent duration-300 px-6 py-2  hover:bg-zinc-300/30 backdrop-blur-md rounded-2xl outline-none">
           Setting
         </li>
-        
-        {
-          authFinder ? (
+
+        {authFinder ? (
           <div>
             {admin ? (
               <>
@@ -114,10 +113,9 @@ function SideHamBar() {
                   </span>
                 </span>
               </>
-              ) : null}
-              </div>
-          ):null
-      }
+            ) : null}
+          </div>
+        ) : null}
         {authFinder ? (
           <li
             className="border-b-2  border-transparent duration-300 px-6 py-2   rounded-2xl outline-none"

@@ -59,7 +59,6 @@ function ShowProduct() {
       .then((res) => {
         setlikeresponse(res.data);
         setresponseLoader(false);
-
       })
       .catch((err) => console.log(err));
   };
