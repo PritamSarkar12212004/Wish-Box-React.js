@@ -1,113 +1,122 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ContextMaker from "../../../context/ContextMaker";
 import PopUp from "../../auth/PopUpWindow/PopUp";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
+import { gsap } from "gsap";
 
 function NavBar() {
   const [admin, setadmin] = useState(false);
   const authFinder = localStorage.getItem("AuthUSerData");
   const [popUp, setpopUp] = useState(false);
-
   const { sidebarHam, setsidebarHam } = useContext(ContextMaker);
-  const [routeName, setRouteName] = useState();
+  const [routeName, setRouteName] = useState("");
   const location = useLocation();
+
   useEffect(() => {
     axiosInstance
       .post("/auth/admin", JSON.parse(authFinder))
       .then((res) => setadmin(res.data))
       .catch((err) => console.log(err));
-    setRouteName(location.pathname);
+    setRouteName(location.pathname || ""); // Ensure routeName is always a string
   }, [location, authFinder]);
+
+  // GSAP Animation
+  useEffect(() => {
+    gsap.fromTo(
+      ".nav-item",
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, stagger: 0.2, duration: 0.5, ease: "power3.out" }
+    );
+  }, []);
+
   return (
-    <div className="lg:w-[full] lg:h-14  lg:text-xl md:h-12 md:text-medium sm:text-sm  h-14 w-[100w] border-b-[1px] border-b-gray-300 px-3 py-1 flex items-center justify-between ">
+    <div className="lg:w-full lg:h-14 md:h-12 sm:h-10 w-full h-14 px-4 py-2 flex items-center justify-between bg-white shadow-md border-b border-gray-200 backdrop-blur-md">
       {popUp ? <PopUp setpopUp={setpopUp} popUp={popUp} /> : null}
 
+      {/* Logo Section */}
       <img
-        className="h-full"
+        className="h-full rounded-full shadow-md"
         src="https://i.pinimg.com/564x/9f/93/ae/9f93ae8f39417cd575e735bf5f1b1505.jpg"
-        alt=""
+        alt="Logo"
       />
-      <div>
-        <ul className="flex  h-full items-center gap-10 ml-3">
-          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 ">
-            <NavLink to={"/"}>Home</NavLink>
+
+      {/* Menu Section */}
+      <div className="hidden md:flex">
+        <ul className="flex h-full items-center gap-6 ml-4">
+          <li className="nav-item text-lg hover:text-gray-700 duration-300 border-b-2 border-transparent hover:border-b-gray-400">
+            <NavLink to="/">Home</NavLink>
           </li>
-          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 ">
-            <NavLink to={"/product"}>Product</NavLink>
+          <li className="nav-item text-lg hover:text-gray-700 duration-300 border-b-2 border-transparent hover:border-b-gray-400">
+            <NavLink to="/product">Product</NavLink>
           </li>
-          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600  md:flex hidden">
-            <NavLink to={"/about"}>About</NavLink>
+          <li className="nav-item text-lg hover:text-gray-700 duration-300 border-b-2 border-transparent hover:border-b-gray-400 hidden md:flex">
+            <NavLink to="/about">About</NavLink>
           </li>
-          <li className="text-xl hover:text-blue-600 duration-300 border-b-2 border-b-white  hover:border-b-blue-600 md:flex hidden ">
-            <NavLink to={"/contact"}>Contact</NavLink>
+          <li className="nav-item text-lg hover:text-gray-700 duration-300 border-b-2 border-transparent hover:border-b-gray-400 hidden md:flex">
+            <NavLink to="/contact">Contact</NavLink>
           </li>
         </ul>
       </div>
-      {routeName === "/product" || "/product/show/:id" ? (
-        <select name="" id="" className=" md:flex hidden">
-          <option value="">All</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-          <option value="">cwf</option>
-        </select>
-      ) : null}
-      {routeName === "/product" || "/product/show/:id" ? (
-        <input
-          type="text"
-          placeholder="Search Items"
-          name=""
-          id=""
-          className="text-sm border-zinc-500 border-2 rounded- px-5 py-2 rounded-xl md:flex hidden "
-        />
-      ) : null}
 
-      <div className="  md:flex hidden">
-        <ul className="flex  h-full items-center gap-10 ml-3">
-          {routeName === "/product" || "/product/show/:id" ? (
-            <>
-              <button>
-                <NavLink to={"/like"}>
-                  <span className="text-3xl  text-red-600  duration-300 cursor-pointer">
-                    <i class="ri-heart-2-fill"></i>{" "}
-                  </span>
-                </NavLink>
-              </button>
-              <button>
-                <NavLink to={"/cart"}>
-                  <span className="text-3xl   text-blue-600 duration-300 cursor-pointer">
-                    <i class="ri-shopping-cart-2-fill"></i>{" "}
-                  </span>
-                </NavLink>
-              </button>
+      {/* Search and Filter Section (Visible on product pages) */}
+      {(routeName === "/product" || routeName?.includes("/product/show")) && (
+        <>
+          <select
+            name=""
+            id=""
+            className="hidden md:flex px-3 py-1 rounded-lg bg-gray-100 border-2 border-gray-300 text-gray-700"
+          >
+            <option value="">All</option>
+            <option value="">Category 1</option>
+            <option value="">Category 2</option>
+            <option value="">Category 3</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Search Items"
+            className="hidden md:flex text-sm border-2 border-gray-300 rounded-xl px-5 py-2 text-gray-600 bg-gray-50"
+          />
+        </>
+      )}
 
-              <button className=" px-4 py-2 bg-blue-500 rounded-xl text-white text-lg hover:bg-blue-600 duration-300">
-                <NavLink>Catelog</NavLink>
-              </button>
-            </>
-          ) : null}
-          {admin ? (
-            <span className="text-3xl cursor-pointer">
-              <NavLink to={"/dashbord"}>
-                <i class="ri-user-fill"></i>
-              </NavLink>
-            </span>
-          ) : null}
-        </ul>
+      {/* Right-Side Icons */}
+      <div className="hidden md:flex items-center gap-5">
+        {(routeName === "/product" || routeName?.includes("/product/show")) && (
+          <>
+            <NavLink
+              to="/like"
+              className="nav-item text-3xl text-red-500 hover:text-gray-600 duration-300"
+            >
+              <i className="ri-heart-2-fill"></i>
+            </NavLink>
+            <NavLink
+              to="/cart"
+              className="nav-item text-3xl text-blue-500 hover:text-gray-600 duration-300"
+            >
+              <i className="ri-shopping-cart-2-fill"></i>
+            </NavLink>
+            <button className="px-4 py-2 bg-blue-600 hover:bg-gray-600 rounded-xl text-white text-lg duration-300">
+              Catelog
+            </button>
+          </>
+        )}
+        {admin && (
+          <NavLink
+            to="/dashbord"
+            className="nav-item text-3xl text-gray-600 hover:text-gray-700 duration-300"
+          >
+            <i className="ri-user-fill"></i>
+          </NavLink>
+        )}
       </div>
 
+      {/* Mobile Sidebar Menu Button */}
       <button
-        className="md:hidden flex text-4xl"
+        className="md:hidden flex text-4xl text-gray-600"
         onClick={() => setsidebarHam(!sidebarHam)}
       >
-        <i class="ri-menu-fill"></i>
+        <i className="ri-menu-fill"></i>
       </button>
     </div>
   );
