@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 
@@ -48,10 +48,11 @@ function Cards(props) {
     navigate(`/product/show/${_id}`);
   };
   useEffect(() => {
-    axiosInstance
-      .post("/shoping/like/chekar", { data: response, auth })
-      .then((res) => setlike(res.data))
-      .catch((err) => console.log(err));
+    localdata &&
+      axiosInstance
+        .post("/shoping/like/chekar", { data: response, auth })
+        .then((res) => setlike(res.data))
+        .catch((err) => console.log(err));
   }, [like]);
 
   return (

@@ -29,7 +29,6 @@ function NavBar() {
       { opacity: 1, y: 0, stagger: 0.2, duration: 0.5, ease: "power3.out" }
     );
   }, [admin]);
-  console.log(admin);
 
   return (
     <div className="lg:w-full lg:h-14 md:h-12 sm:h-10 w-full h-14 px-4 py-2 flex items-center justify-between bg-white shadow-md border-b border-gray-200 backdrop-blur-md">
