@@ -42,7 +42,7 @@ function NavBar() {
       />
 
       {/* Menu Section */}
-      <div className="hidden md:flex">
+      <div className=" md:flex">
         <ul className="flex h-full items-center gap-6 ml-4">
           <li className="nav-item text-lg hover:text-gray-700 duration-300 border-b-2 border-transparent hover:border-b-gray-400">
             <NavLink to="/">Home</NavLink>
