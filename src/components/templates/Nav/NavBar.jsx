@@ -28,7 +28,8 @@ function NavBar() {
       { opacity: 0, y: -20 },
       { opacity: 1, y: 0, stagger: 0.2, duration: 0.5, ease: "power3.out" }
     );
-  }, []);
+  }, [admin]);
+  console.log(admin);
 
   return (
     <div className="lg:w-full lg:h-14 md:h-12 sm:h-10 w-full h-14 px-4 py-2 flex items-center justify-between bg-white shadow-md border-b border-gray-200 backdrop-blur-md">
@@ -60,7 +61,7 @@ function NavBar() {
       </div>
 
       {/* Search and Filter Section (Visible on product pages) */}
-      {(routeName === "/product" || routeName?.includes("/product/show")) && (
+      {(routeName === "/product" || "/product/show" || "/like") && (
         <>
           <select
             name=""
@@ -82,7 +83,7 @@ function NavBar() {
 
       {/* Right-Side Icons */}
       <div className="hidden md:flex items-center gap-5">
-        {(routeName === "/product" || routeName?.includes("/product/show")) && (
+        {(routeName === "/product" || "/product/show" || "/like") && (
           <>
             <NavLink
               to="/like"
@@ -103,7 +104,7 @@ function NavBar() {
         )}
         {admin && (
           <NavLink
-            to="/dashbord"
+            to="/dashbord/adminproducts"
             className="nav-item text-3xl text-gray-600 hover:text-gray-700 duration-300"
           >
             <i className="ri-user-fill"></i>

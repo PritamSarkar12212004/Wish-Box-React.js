@@ -99,28 +99,14 @@ function SideHamBar() {
             <div className={`w-full overflow-hidden transition-all duration-500 ${option ? "h-auto" : "h-0"}`}>  
               <ul className="flex flex-col items-center">  
                 <li className="menu-item px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-2xl shadow duration-300">  
-                  <NavLink to={"/dashboard"} onClick={() => setsidebarHam(!sidebarHam)}>  
-                    Dashboard  
-                  </NavLink>  
-                </li>  
-                <li className="menu-item px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-2xl shadow duration-300">  
-                  <NavLink to={"/dashboard/adminuser"} onClick={() => setsidebarHam(!sidebarHam)}>  
-                    Users  
-                  </NavLink>  
-                </li>  
-                <li className="menu-item px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-2xl shadow duration-300">  
-                  <NavLink to={"/dashboard/adminproducts"} onClick={() => setsidebarHam(!sidebarHam)}>  
+                  <NavLink to={"/dashbord/adminproducts"} onClick={() => setsidebarHam(!sidebarHam)}>  
                     Products  
                   </NavLink>  
-                </li>  
-                <li className="menu-item px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-2xl shadow duration-300">  
-                  Notifications  
                 </li>  
               </ul>  
             </div>  
           </div>  
         ) : null}  
-
         {/* Logout */}  
         {authFinder ? (  
           <li  

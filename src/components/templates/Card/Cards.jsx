@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { json, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 
@@ -49,7 +49,7 @@ function Cards(props) {
   };
   useEffect(() => {
     axiosInstance
-      .post("/shoping/like/chekar", { data: response, auth })
+      .post("/shoping/like/chekar2", { data: response, auth })
       .then((res) => setlike(res.data))
       .catch((err) => console.log(err));
   }, [like]);
