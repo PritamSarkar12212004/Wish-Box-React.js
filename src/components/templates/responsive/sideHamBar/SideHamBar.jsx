@@ -24,7 +24,8 @@ function SideHamBar() {
         .then((res) => setadmin(res.data))
         .catch((err) => console.log(err));
     }
-  }, [sidebarHam]);
+  }, [sidebarHam,admin]);
+console.log(admin)
 
   // GSAP Animation
   useEffect(() => {
