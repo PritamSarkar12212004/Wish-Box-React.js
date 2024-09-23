@@ -49,7 +49,7 @@ function Cards(props) {
   };
   useEffect(() => {
     axiosInstance
-      .post("/shoping/like/chekar2", { data: response, auth })
+      .post("/shoping/like/chekar", { data: response, auth })
       .then((res) => setlike(res.data))
       .catch((err) => console.log(err));
   }, [like]);
