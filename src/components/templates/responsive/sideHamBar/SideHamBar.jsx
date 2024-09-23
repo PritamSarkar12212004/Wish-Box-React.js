@@ -75,27 +75,10 @@ function SideHamBar() {
             Contact  
           </NavLink>  
         </li>  
-        <li className="menu-item px-6 py-2 bg-gray-200 hover:bg-gray-300 rounded-2xl shadow duration-300">  
-          Profile  
-        </li>  
-        <li className="menu-item px-6 py-2 bg-gray-200 hover:bg-gray-300 rounded-2xl shadow duration-300">  
-          Setting  
-        </li>  
-
         {/* Admin Section */}  
         {authFinder && admin ? (  
           <div>  
-            <li  
-              className="menu-item px-6 py-2 bg-gray-200 hover:bg-gray-300 rounded-2xl shadow duration-300 cursor-pointer"  
-              onClick={() => setoption(!option)}  
-            >  
-              Admin{" "}  
-              {option ? (  
-                <i className="ri-arrow-down-s-line"></i>  
-              ) : (  
-                <i className="ri-arrow-up-s-line"></i>  
-              )}  
-            </li>  
+
             <div className={`w-full overflow-hidden transition-all duration-500 ${option ? "h-auto" : "h-0"}`}>  
               <ul className="flex flex-col items-center">  
                 <li className="menu-item px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-2xl shadow duration-300">  
