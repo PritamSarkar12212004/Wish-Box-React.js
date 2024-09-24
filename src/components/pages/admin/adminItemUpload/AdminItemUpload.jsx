@@ -1,12 +1,14 @@
+import React, { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import axiosInstance from "../../../../utils/axios/AxiosConfig";
-import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../loading/Loading";
 import { gsap } from "gsap";
+import ContextMaker from '../../../../context/ContextMaker';
 
 function AdminItemUpload() {
+  const { setuploadDataReloade } = useContext(ContextMaker);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
@@ -39,16 +41,9 @@ function AdminItemUpload() {
     );
   }, []);
 
-  const reciveBackedData = (data) => {
-    setBackendResponse(data.data[0]);
-    reset();
-    navigate("/dashbord/adminproducts");
-  };
-
   const handleFormSubmission = async (infos) => {
     setLoader(true);
     if (imageList.length === 0) return;
-
     const uploadPromises = imageList.map((image) => {
       const data = new FormData();
       data.append("file", image);
@@ -65,8 +60,13 @@ function AdminItemUpload() {
       const uploadedImageURLs = responses.map(
         (response) => response.data.secure_url
       );
-      await axiosInstance.post("/upload/product", { infos, uploadedImageURLs });
-      reciveBackedData(responses);
+      await axiosInstance
+        .post("/upload/product", { infos, uploadedImageURLs })
+        .then((res) => {
+          reset();
+          setuploadDataReloade(res);
+          navigate("/dashbord/adminproducts");
+        });
     } catch (err) {
       console.error("Error uploading images:", err);
     } finally {
@@ -137,6 +137,8 @@ function AdminItemUpload() {
             {/* Product Categories */}
             {/* Product Categories */}
             <option value="Diya_Hangings">Diya Hangings</option>
+            <option value="Golden_Butterfly">Golden Butterfly</option>
+            <option value="3D_Diwali_Hangings">3D Diwali Hangings</option>
             <option value="Kite">Kite</option>
             <option value="PomPom">PomPom</option>
             <option value="Pataka">Pataka</option>

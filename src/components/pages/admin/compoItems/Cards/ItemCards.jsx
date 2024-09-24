@@ -7,7 +7,6 @@ function ItemCards({ response }) {
   return (
     <div className="lg:w-60 md:w-56 w-full sm:w-40 bg-white relative hover:scale-105 transition-transform duration-300 cursor-pointer border border-zinc-300 rounded-lg shadow-lg p-3">
       {/* Favorite Icon */}
-   
 
       {/* Product Image */}
       <img
@@ -21,7 +20,9 @@ function ItemCards({ response }) {
         <h1 className="font-bold text-sm lg:text-lg truncate">{ProductName}</h1>
 
         <p className="text-xs md:text-sm text-gray-600 mt-1 line-clamp-2 md:line-clamp-none">
-          {ProductDescription}
+          {ProductDescription.split(" ").length > 10
+            ? ProductDescription.split(" ").slice(0, 10).join(" ") + "..."
+            : ProductDescription}
         </p>
 
         <div className="w-full flex justify-between items-center mt-3">

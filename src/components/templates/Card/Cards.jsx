@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
+import ContextMaker from '../../../context/ContextMaker';
 
 function Cards(props) {
+  const { uploadDataReloade } = useContext(ContextMaker);
   const [loader, setloader] = useState(false);
   const navigate = useNavigate();
   const [like, setlike] = useState("");
@@ -53,7 +55,7 @@ function Cards(props) {
         .post("/shoping/like/chekar", { data: response, auth })
         .then((res) => setlike(res.data))
         .catch((err) => console.log(err));
-  }, [like]);
+  }, [like,uploadDataReloade]);
 
   return (
     <div className="relative">
