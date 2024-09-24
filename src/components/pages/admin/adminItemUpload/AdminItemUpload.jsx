@@ -135,6 +135,8 @@ function AdminItemUpload() {
             {...register("ProductCategory")}
           >
             {/* Product Categories */}
+            {/* Product Categories */}
+            <option value="Diya_Hangings">Diya Hangings</option>
             <option value="Kite">Kite</option>
             <option value="PomPom">PomPom</option>
             <option value="Pataka">Pataka</option>
@@ -150,7 +152,6 @@ function AdminItemUpload() {
             </option>
           </select>
           <input
-            required
             type="text"
             placeholder="Length"
             className="h-12 px-4 border border-gray-300 rounded-lg w-32"
@@ -158,10 +159,16 @@ function AdminItemUpload() {
           />
           <input
             type="text"
-            required
             placeholder="Width"
             className="h-12 px-4 border border-gray-300 rounded-lg w-32"
             {...register("ProductWidth")}
+          />
+          <input
+            type="number"
+            required
+            placeholder="pcs"
+            className="h-12 px-4 border border-gray-300 rounded-lg w-32"
+            {...register("pcs")}
           />
         </div>
 

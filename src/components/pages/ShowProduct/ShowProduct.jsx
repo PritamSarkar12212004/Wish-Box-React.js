@@ -160,7 +160,7 @@ function ShowProduct() {
                   {response.ProductPrice}
                 </span>
               </div>
-              <span className="text-2xl opacity-65">(Pack Of 6 pcs)</span>
+              <span className="text-2xl opacity-65">Pack Of { response.pcs} pcs</span>
             </h1>
             <span className="px-3 w-24 py-1 rounded-md bg-green-500 text-2xl text-white flex items-center justify-center gap-2">
               4.0
