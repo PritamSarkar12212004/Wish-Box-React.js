@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
@@ -6,10 +6,10 @@ import ContextMaker from '../../../context/ContextMaker';
 
 function Cards(props) {
   const { uploadDataReloade } = useContext(ContextMaker);
-  const [loader, setloader] = useState(false);
+  const [ setloader] = useState(false);
   const navigate = useNavigate();
   const [like, setlike] = useState("");
-  const { response, popAuth } = props;
+  const { response } = props;
   const auth = JSON.parse(localStorage.getItem("AuthUSerData"));
   const localdata = localStorage.getItem("AuthUSerData");
   const HeartController = (data) => {

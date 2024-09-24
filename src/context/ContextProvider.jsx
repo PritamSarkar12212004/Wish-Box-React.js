@@ -5,7 +5,6 @@ const ContextProvider = ({ children }) => {
   const [notibar, setnotibar] = useState(false);
   const [sidebarHam, setsidebarHam] = useState(true);
   const [uploadDataReloade, setuploadDataReloade] = useState();
-
   const [sidebar, setsidebar] = useState(false);
   return (
     <ContextMaker.Provider

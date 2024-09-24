@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../../templates/Card/Cards";
 import Footer from "../Footer/Footer";
-import PopUp from "../../auth/PopUpWindow/PopUp";
 import axiosInstance from "../../../utils/axios/AxiosConfig";
 import LoadingProduct from "../../loading/LoadingProduct";
+import SecoundControllerBelowNav from "../../templates/responsive/SecoundController/SecoundControllerBelowNav";
 function MainContent() {
   const [popUp, setpopUp] = useState(false);
   const [close, setclose] = useState(false);
   const [response, setresponse] = useState([]);
   const popAuth = () => {
-    
     setclose(!close);
   };
   useEffect(() => {
@@ -25,6 +24,7 @@ function MainContent() {
       ) : (
         <>
           <div className="w-full h-full flex flex-wrap overflow-y-auto  justify-center md:gap-5 gap-4 pt-2">
+            <SecoundControllerBelowNav />
             {response.map((item, index) => (
               <Cards key={index} img={item} popAuth={popAuth} response={item} />
             ))}
